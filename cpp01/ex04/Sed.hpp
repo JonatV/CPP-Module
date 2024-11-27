@@ -6,7 +6,7 @@ class Sed{
 	private:
 		const std::string to_replace;
 		const std::string new_edit;
-		const std::string file_name;
+		std::string file_name;
 
 		bool checkStrings();
 		bool checkFile();

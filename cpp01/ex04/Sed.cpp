@@ -15,9 +15,24 @@ bool Sed::startReplacement() {
 	if (!checkStrings() || !checkFile())
 		return (false);
 	std::cout << "Open the file\n";
-	std::ifstream file(file_name.c_str());
-	if (!file.is_open())
+	/* START INFILE */
+	std::ifstream infile(file_name.c_str());
+	if (!infile.is_open())
 		return (std::cerr << "Error: file not found\n", false);
+	// add the process of reading the file
+	// add the process of replacing the strings
+	infile.close();
+	/* END INFILE */
+
+	/* START OUTFILE */
+	file_name += ".replace";
+	std::ofstream outfile(file_name.c_str());
+	if (!outfile.is_open())
+		return (std::cerr << "Error: can't create the outfile\n", false);
+	// add the process of writing the file
+	outfile.close();
+	/* END OUTFILE */
+
 	std::cout << "Replace the strings\n";
 	std::cout << "Write the new file\n";
 	return true;
