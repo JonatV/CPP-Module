@@ -29,8 +29,8 @@ Fixed::Fixed(const float v)
 }
 
 Fixed &Fixed::operator=(const Fixed &old_fixed) {
-	std::cout << "\e[2mAssignation operator called\e[0m" << std::endl;
-	value = old_fixed.getRawBits();
+	std::cout << "\e[2mCopy assignment operator called\e[0m" << std::endl;
+	value = old_fixed.value;
 	return (*this);
 }
 
