@@ -10,11 +10,8 @@ int	main(int argc, char **argv)
 	{
 		Sed strEditor(argv[2], argv[3], argv[1]);
 		if (!strEditor.startReplacement())
-		{
-			std::cerr << "Error during replacement" << std::endl;
 			return (1);
-		}
-		std::cout << "You can find the new file at " << argv[1] << ".replace" << std::endl;
+		std::cout << "Modified text can be found in : \e[1;35m" << argv[1] << ".replace\e[0m " << std::endl;
 	}
 	return (0);
 }

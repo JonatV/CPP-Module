@@ -10,6 +10,11 @@ class Sed{
 
 		bool checkStrings();
 		bool checkFile();
+		std::string processInfile();
+		std::string findAndReplace(const std::string &line);
+		std::string createFileName();
+		bool writeOutfile(const std::string &output_text, const std::string &new_file_name);
+		
 	public:
 		Sed(const std::string to_replace, const std::string new_edit, const std::string file_name);
 		~Sed();
