@@ -106,6 +106,11 @@ Fixed Fixed::operator*(const Fixed &other) const {
 }
 
 Fixed Fixed::operator/(const Fixed &other) const {
+	if (other.value == 0)
+	{
+		std::cerr << "Error: Division by zero!" << std::endl;
+		return Fixed(0);
+	}
 	Fixed result(this->toFloat() / other.toFloat());
 	return (result);
 }
