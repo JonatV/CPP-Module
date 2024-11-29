@@ -7,6 +7,16 @@ ClapTrap::ClapTrap() : _name("ClapTrap1919"), _hitPoints(10), _hitPointsMax(10),
 ClapTrap::ClapTrap(std::string name) : _name(name), _hitPoints(10), _hitPointsMax(10), _energyPoints(10), _attackDamage(0){
 	std::cout << "\e[2mParametrized constructor called\e[0m" << std::endl;
 }
+
+ClapTrap::ClapTrap(const ClapTrap &other){
+	std::cout << "\e[2mCopy constructor called\e[0m" << std::endl;
+	this->_name = other._name;
+	this->_hitPoints = other._hitPoints;
+	this->_hitPointsMax = other._hitPointsMax;
+	this->_energyPoints = other._energyPoints;
+	this->_attackDamage = other._attackDamage;
+}
+
 ClapTrap::~ClapTrap(){
 	std::cout << "\e[2mDestructor called\e[0m" << std::endl;
 }
