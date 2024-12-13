@@ -1,15 +1,27 @@
 #include "ScalarConverter.hpp"
 
 #include <iostream>
+#include <string>
+#include <cstdlib>
+#include <limits>
 
+// helper functions
+bool	ScalarConverter::checkIntOverflow(const std::string &input)
+{
+	if (input.length() > 10)
+		return (true);
+	long long int i = std::atoll(input.c_str());
+	if (i < std::numeric_limits<int>::min() || i > std::numeric_limits<int>::max())
+		return (true);
+	return (false);
+}
 
 // Member functions
-
 bool	ScalarConverter::isChar(const std::string &input)
 {
 	if (input.length() != 1)
 		return (false);
-	if (input[0] >= 48 && input[0] <= 57)
+	if (isdigit(input[0]))
 		return (false);
 	return (true);
 }
@@ -21,11 +33,11 @@ bool	ScalarConverter::isInt(const std::string &input)
 	i = 0;
 	if (input[i] == '+' || input[i] == '-')
 		i++;
-	while (input[i] >= 48 && input[i] <= 57)
+	while (isdigit(input[i]))
 		i++;
-	if (input[i] == '\0')
-		return (true);
-	return (false);
+	if (input[i] != '\0')
+		return (false);
+	return (true);
 }
 
 bool	ScalarConverter::isFloat(const std::string &input)
@@ -35,13 +47,13 @@ bool	ScalarConverter::isFloat(const std::string &input)
 	i = 0;
 	if (input[i] == '+' || input[i] == '-')
 		i++;
-	while (input[i] >= 48 && input[i] <= 57)
+	while (isdigit(input[i]))
 		i++;
 	if (input[i] == '.')
 		i++;
 	else
 		return (false);
-	while (input[i] >= 48 && input[i] <= 57)
+	while (isdigit(input[i]))
 		i++;
 	if (input[i] == 'f')
 	{
@@ -59,13 +71,13 @@ bool ScalarConverter::isDouble(const std::string &input)
 	i = 0;
 	if (input[i] == '+' || input[i] == '-')
 		i++;
-	while (input[i] >= 48 && input[i] <= 57)
+	while (isdigit(input[i]))
 		i++;
 	if (input[i] == '.')
 		i++;
 	else
 		return (false);
-	while (input[i] >= 48 && input[i] <= 57)
+	while (isdigit(input[i]))
 		i++;
 	if (input[i] == '\0')
 		return (true);
@@ -74,39 +86,128 @@ bool ScalarConverter::isDouble(const std::string &input)
 
 int		ScalarConverter::findType(const std::string &input)
 {
-	if (isChar(input))
-		return (1);
-	else if (isInt(input))
-		return (2);
-	else if (isFloat(input))
-		return (3);
-	else if (isDouble(input))
-		return (4);
+	if (isChar(input)) return (1);
+	if (isInt(input)) return (4);
+	if (isFloat(input)) return (2);
+	if (isDouble(input)) return (3);
+	if (input == "-inff" || input == "+inff" || input == "nanf") return (5);
+	if (input == "-inf" || input == "+inf" || input == "nan") return (6);
 	return (0);
 }
 
 void	ScalarConverter::convert(const std::string &input)
 {
-	int	type;
-
-	type = findType(input);
-	std::cout << WHITE << "Type is: ";
+	if (input.empty())
+	{
+		std::cout << RED << "Hop hop hop hop! Gimme something..." << RESET << std::endl;
+		std::cout << "Usage: ./scalar_converter " << WHITE << "<I N P U T>" << std::endl;
+		return;
+	}
+	if (input.find_first_not_of(" \t\n\v\f\r") == std::string::npos)
+	{
+		std::cout << RED << "No no no (nice try)" << RESET << std::endl;
+		std::cout << "Usage: ./scalar_converter " << WHITE << "<I N P U T>" << std::endl;
+		return;
+	}
+	int	type = findType(input);
+	std::cout << WHITE << "Initial type is: ";
 	switch (type)
 	{
-		case 1:
-			std::cout << MAGENTA << "char" << RESET << std::endl;
-			break;
-		case 2:
-			std::cout << MAGENTA << "int" << RESET << std::endl;
-			break;
-		case 3:
-			std::cout << MAGENTA << "float" << RESET << std::endl;
-			break;
-		case 4:
-			std::cout << MAGENTA << "double" << RESET << std::endl;
-			break;
-		default: // 0
-			std::cout << RED << "Unknown type" << RESET << std::endl;
-			break;
+		case 1: std::cout << MAGENTA << "char" << RESET << std::endl; displayChar(input); break;
+		case 2: std::cout << MAGENTA << "float" << RESET << std::endl; displayFloat(input); break;
+		case 3: std::cout << MAGENTA << "double" << RESET << std::endl; displayDouble(input); break;
+		case 4: std::cout << MAGENTA << "int" << RESET << std::endl; displayInteger(input); break;
+		case 5: std::cout << MAGENTA << "float (exception)" << RESET << std::endl; displayFloatDoubleException(input); break;
+		case 6: std::cout << MAGENTA << "double (exception)" << RESET << std::endl; displayFloatDoubleException(input); break;
+		default: std::cout << RED << "Unknown" << RESET << std::endl; break;
 	}
+}
+
+void ScalarConverter::displayInteger(const std::string &input)
+{
+	if (checkIntOverflow(input))
+	{
+		std::cout << WHITE << "char: " << IMP << std::endl;
+		std::cout << WHITE << "int: " << OVER << std::endl;
+		std::cout << WHITE << "float: " << IMP << std::endl;
+		std::cout << WHITE << "double: " << IMP << std::endl;
+		return;
+	}
+	int i = std::atoi(input.c_str());
+	std::cout << WHITE << "char: ";
+	if (i < 0 || i > 127 || !isprint(static_cast<char>(i)))
+		std::cout << RED << "Non displayable" RESET << std::endl;
+	else
+		std::cout << MAGENTA << "'" << static_cast<char>(i) << "'" << RESET << std::endl;
+	std::cout << WHITE << "int: " << MAGENTA << i << RESET << std::endl;
+	std::cout << WHITE << "float: " << MAGENTA << static_cast<float>(i) << ".0f" << RESET << std::endl;
+	std::cout << WHITE << "double: " << MAGENTA << static_cast<double>(i) << ".0" << RESET << std::endl;
+}
+
+void ScalarConverter::displayChar(const std::string &input)
+{
+	std::cout << WHITE << "char: " << MAGENTA << "'" << input << "'" << RESET << std::endl;
+	std::cout << WHITE << "int: " << MAGENTA << static_cast<int>(input[0]) << RESET << std::endl;
+	std::cout << WHITE << "float: " << MAGENTA << static_cast<float>(input[0]) << ".0f" << RESET << std::endl;
+	std::cout << WHITE << "double: " << MAGENTA << static_cast<double>(input[0]) << ".0" << RESET << std::endl;
+}
+
+void ScalarConverter::displayFloat(const std::string &input)
+{
+	float f = std::strtof(input.c_str(), NULL);
+	std::cout << WHITE << "char: ";
+	if (f < 0 || f > 127 || !isprint(static_cast<char>(f)))
+		std::cout << RED << "Non displayable" RESET << std::endl;
+	else
+		std::cout << MAGENTA << "'" << static_cast<char>(f) << "'" << RESET << std::endl;
+	std::cout << WHITE << "int: ";
+	if (f < std::numeric_limits<int>::min() || f > std::numeric_limits<int>::max())
+		std::cout << OVER << std::endl;
+	else
+		std::cout << MAGENTA << static_cast<int>(f) << RESET << std::endl;
+	std::cout << WHITE << "float: " << MAGENTA << f << "f" << RESET << std::endl;
+	std::cout << WHITE << "double: " << MAGENTA << static_cast<double>(f) << RESET << std::endl;
+}
+
+void ScalarConverter::displayDouble(const std::string &input)
+{
+	double d = std::strtod(input.c_str(), NULL);
+	std::cout << WHITE << "char: ";
+	if (d < 0 || d > 127 || !isprint(static_cast<char>(d)))
+		std::cout << RED << "Non displayable" RESET << std::endl;
+	else
+		std::cout << MAGENTA << "'" << static_cast<char>(d) << "'" << RESET << std::endl;
+	std::cout << WHITE << "int: ";
+	if (d < std::numeric_limits<int>::min() || d > std::numeric_limits<int>::max())
+		std::cout << OVER << std::endl;
+	else
+		std::cout << MAGENTA << static_cast<int>(d) << RESET << std::endl;
+	std::cout << WHITE << "float: " << MAGENTA << static_cast<float>(d) << "f" << RESET << std::endl;
+	std::cout << WHITE << "double: " << MAGENTA << d << RESET << std::endl;
+}
+
+
+void ScalarConverter::displayFloatDoubleException(const std::string &input)
+{
+	std::cout << WHITE << "char: " << IMP << std::endl;
+	std::cout << WHITE << "int: " << IMP << std::endl;
+
+	std::string floatStr, doubleStr;
+	if (input == "-inff" || input == "-inf")
+	{
+		floatStr = "-inff";
+		doubleStr = "-inf";
+	}
+	else if (input == "+inff" || input == "+inf")
+	{
+		floatStr = "+inff";
+		doubleStr = "+inf";
+	}
+	else if (input == "nanf" || input == "nan")
+	{
+		floatStr = "nanf";
+		doubleStr = "nan";
+	}
+	std::cout << WHITE << "float: " << MAGENTA << floatStr << RESET << std::endl;
+	std::cout << WHITE << "double: " << MAGENTA << doubleStr << RESET << std::endl;
 }
