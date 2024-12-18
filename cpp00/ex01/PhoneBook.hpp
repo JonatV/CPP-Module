@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   PhoneBook.hpp                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/18 10:09:56 by jveirman          #+#    #+#             */
+/*   Updated: 2024/12/18 10:09:57 by jveirman         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PHONEBOOK_HPP
 #define PHONEBOOK_HPP
 
@@ -27,7 +39,6 @@ class PhoneBook
 		void				display_search_contact_header();
 		void				display_contact_list();
 		bool				add_contact_input_retrieving(std::string *name, std::string *last, std::string *nickname, std::string *phone, std::string *secret);
-
 
 	public:
 		PhoneBook();

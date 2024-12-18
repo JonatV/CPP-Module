@@ -1,5 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   PhoneBook.cpp                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/18 10:09:48 by jveirman          #+#    #+#             */
+/*   Updated: 2024/12/18 10:09:54 by jveirman         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "PhoneBook.hpp"
-#include "main.hpp" // ? not sure here
+#include "main.hpp"
 
 PhoneBook::PhoneBook() : current_profile_number(0), total_profiles(0)
 {
