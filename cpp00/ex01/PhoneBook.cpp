@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:09:48 by jveirman          #+#    #+#             */
-/*   Updated: 2024/12/18 10:09:54 by jveirman         ###   ########.fr       */
+/*   Updated: 2024/12/19 16:43:56 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,9 @@ bool	PhoneBook::add_contact()
 {
 	std::string name, last, nickname, phone, secret;
 
-	display_add_contact_header();
 	if (!has_space_for_new_contact())
 		current_profile_number = 0;
+	display_add_contact_header();
 	if (!add_contact_input_retrieving(&name, &last, &nickname, &phone, &secret))
 		return (false);
 	this->array_contact[current_profile_number].setName(name);
@@ -96,7 +96,7 @@ void	PhoneBook::print_user_choice(int	index_choosen)
 	std::cout << TAB DARK << "Darkest Secret: " << profile.getSecret() << N << std::endl;
 }
 
-static bool	user_choose_index_and_check(int	*index_choosen, int current_profile_number)
+bool	PhoneBook::user_choose_index_and_check(int	*index_choosen)
 {
 	std::string	buffer;
 	while (true)
@@ -120,8 +120,8 @@ static bool	user_choose_index_and_check(int	*index_choosen, int current_profile_
 			continue;
 		}
 		*index_choosen = buffer[0] - '0';
-		if (*index_choosen > current_profile_number || *index_choosen < 1)
-			std::cout << TAB BRED "This number isn't in the valid range." N << std::endl;
+		if (*index_choosen > total_profiles || *index_choosen < 1)
+			std::cout << TAB BRED "This number isn't in the valid range. ->" N << *index_choosen << std::endl;
 		else
 			return (true);
 	}
@@ -169,7 +169,7 @@ bool PhoneBook::search_contact()
 	else
 		display_search_contact_header();
 	display_contact_list();
-	if (!user_choose_index_and_check(&id, this->current_profile_number))
+	if (!user_choose_index_and_check(&id))
 		return (false);
 	system("clear");
 	print_user_choice(id);
