@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/12/19 16:56:44 by jveirman          #+#    #+#              #
+#    Updated: 2024/12/19 16:56:45 by jveirman         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 SRCS = main.cpp Animal.cpp Cat.cpp Dog.cpp WrongAnimal.cpp WrongCat.cpp Brain.cpp
 NAME = abstract
 CC = clang++

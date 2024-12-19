@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/12/19 16:54:30 by jveirman          #+#    #+#              #
+#    Updated: 2024/12/19 16:54:31 by jveirman         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 SRCS = main.cpp ClapTrap.cpp ScavTrap.cpp FragTrap.cpp DiamondTrap.cpp
 NAME = diamondtrap
 CC = clang++
