@@ -15,7 +15,6 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $(STD) $(DEV_FLAGS) $(OBJS) -o $(NAME)
-# ./$(NAME)
 
 %.o: %.cpp
 	$(CC) $(CFLAGS) $(STD) $(DEV_FLAGS) -c $< -o $@
