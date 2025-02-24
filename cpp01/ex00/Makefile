@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/12/19 16:47:57 by jveirman          #+#    #+#              #
+#    Updated: 2024/12/20 11:14:48 by jveirman         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME = zombie
 CC = clang++
 CFLAGS = -Wall -Wextra -Werror
@@ -15,7 +27,7 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $(STD) $(DEV_FLAGS) $(OBJS) -o $(NAME)
-	./$(NAME)
+	
 
 %.o: %.cpp
 	$(CC) $(CFLAGS) $(STD) $(DEV_FLAGS) -c $< -o $@
