@@ -25,6 +25,7 @@ class ScalarConverter
 		static void displayFloat(const std::string &input);
 		static void displayFloatDoubleException(const std::string &input);
 		static bool	checkIntOverflow(const std::string &);
+		static std::string	trim(const std::string &);
 	public:
 	// Member functions
 		static void convert(const std::string &);

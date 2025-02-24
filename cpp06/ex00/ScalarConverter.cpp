@@ -16,6 +16,13 @@ bool	ScalarConverter::checkIntOverflow(const std::string &input)
 	return (false);
 }
 
+std::string ScalarConverter::trim(const std::string &input)
+{
+	size_t start = input.find_first_not_of(" \t\n\v\f\r");
+	size_t end = input.find_last_not_of(" \t\n\v\f\r");
+	return (input.substr(start, end - start + 1));
+}
+
 // Member functions
 bool	ScalarConverter::isChar(const std::string &input)
 {
@@ -31,6 +38,10 @@ bool	ScalarConverter::isInt(const std::string &input)
 	int	i;
 
 	i = 0;
+	// skip all thype of spaces
+	while (input[i] == " \t\n\v\f\r"[0])
+		i++;
+
 	if (input[i] == '+' || input[i] == '-')
 		i++;
 	while (isdigit(input[i]))
@@ -109,16 +120,17 @@ void	ScalarConverter::convert(const std::string &input)
 		std::cout << "Usage: ./scalar_converter " << WHITE << "<I N P U T>" << std::endl;
 		return;
 	}
-	int	type = findType(input);
+	std::string trimmed = trim(input);
+	int	type = findType(trimmed);
 	std::cout << WHITE << "Initial type is: ";
 	switch (type)
 	{
-		case 1: std::cout << MAGENTA << "char" << RESET << std::endl; displayChar(input); break;
-		case 2: std::cout << MAGENTA << "float" << RESET << std::endl; displayFloat(input); break;
-		case 3: std::cout << MAGENTA << "double" << RESET << std::endl; displayDouble(input); break;
-		case 4: std::cout << MAGENTA << "int" << RESET << std::endl; displayInteger(input); break;
-		case 5: std::cout << MAGENTA << "float (exception)" << RESET << std::endl; displayFloatDoubleException(input); break;
-		case 6: std::cout << MAGENTA << "double (exception)" << RESET << std::endl; displayFloatDoubleException(input); break;
+		case 1: std::cout << MAGENTA << "char" << RESET << std::endl; displayChar(trimmed); break;
+		case 2: std::cout << MAGENTA << "float" << RESET << std::endl; displayFloat(trimmed); break;
+		case 3: std::cout << MAGENTA << "double" << RESET << std::endl; displayDouble(trimmed); break;
+		case 4: std::cout << MAGENTA << "int" << RESET << std::endl; displayInteger(trimmed); break;
+		case 5: std::cout << MAGENTA << "float (exception)" << RESET << std::endl; displayFloatDoubleException(trimmed); break;
+		case 6: std::cout << MAGENTA << "double (exception)" << RESET << std::endl; displayFloatDoubleException(trimmed); break;
 		default: std::cout << RED << "Unknown" << RESET << std::endl; break;
 	}
 }
