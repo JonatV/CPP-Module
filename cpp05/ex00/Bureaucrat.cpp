@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 16:57:57 by jveirman          #+#    #+#             */
-/*   Updated: 2024/12/19 16:57:58 by jveirman         ###   ########.fr       */
+/*   Updated: 2025/02/24 13:17:09 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void Bureaucrat::setGrade(int grade)
 // overload <<
 std::ostream	&operator<<(std::ostream &os, const Bureaucrat &bureaucrat)
 {
-	os << bureaucrat._name << ", bureaucrat grade " << bureaucrat._grade;
+	os << bureaucrat.getName() << ", bureaucrat grade " << bureaucrat.getGrade();
 	return (os);
 }
 
