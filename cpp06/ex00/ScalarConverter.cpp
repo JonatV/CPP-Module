@@ -5,6 +5,10 @@
 #include <cstdlib>
 #include <limits>
 
+// constr / destr
+ScalarConverter::ScalarConverter() {}
+ScalarConverter::~ScalarConverter() {}
+
 // helper functions
 bool	ScalarConverter::checkIntOverflow(const std::string &input)
 {
