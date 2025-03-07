@@ -13,14 +13,9 @@ class Base
 
 	// Parameterized constructor
 		
-	// Copy constructor
-		Base(const Base &);
-		
 	// Destructor
-		~Base();
+		virtual ~Base();
 		
-	// Overloads
-		Base	&operator=(const Base &);
 		
 	// Member functions
 		
