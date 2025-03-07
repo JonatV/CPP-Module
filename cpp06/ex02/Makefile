@@ -1,4 +1,4 @@
-SRCS = main.cpp Base.cpp A.cpp B.cpp C.cpp
+SRCS = main.cpp Base.cpp
 NAME = identify
 CC = clang++
 CFLAGS = -Wall -Wextra -Werror

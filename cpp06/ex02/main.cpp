@@ -6,10 +6,15 @@
 #include <iostream>
 #include <string>
 
-int	main(int argc, char *argv[])
+class Baaaad: public Base{};
+
+int	main(void)
 {
-	(void)argc;
-	(void)argv;
-	
+	Base *base = generate();
+	identify(base);
+	identify(*base);
+	Base *bad = new Baaaad;
+	identify(bad);
+	identify(*bad);
 	return 0;
 }
