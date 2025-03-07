@@ -5,24 +5,8 @@
 
 class Base
 {
-	private:
-		
 	public:
-	// Constructor
-		Base();
-
-	// Parameterized constructor
-		
-	// Destructor
 		virtual ~Base();
-		
-		
-	// Member functions
-		
-	// Getters
-		
-	// Setters
-		
 };
 
 #endif
