@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 16:53:32 by jveirman          #+#    #+#             */
-/*   Updated: 2024/12/19 16:53:33 by jveirman         ###   ########.fr       */
+/*   Updated: 2025/03/17 18:37:43 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,9 @@ int Fixed::toInt(void) const {
 /* @link https://www.youtube.com/watch?v=BnMnozsSPmw
 * this explain how to overload the << operator, common error and good practices (in depth)
 */
-std::ostream &operator<<(std::ostream &COUT, const Fixed &fixed) {
-	COUT << fixed.toFloat();
-	return (COUT);
+std::ostream &operator<<(std::ostream &cout, const Fixed &fixed) {
+	cout << fixed.toFloat();
+	return (cout);
 }
 
 /////////////////////////////////

@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 16:53:23 by jveirman          #+#    #+#             */
-/*   Updated: 2024/12/19 16:53:24 by jveirman         ###   ########.fr       */
+/*   Updated: 2025/03/17 20:54:28 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ bool bsp( Point const a, Point const b, Point const c, Point const point)
 	areaBCP = calc_area(b, c, point);
 	epsilon = 0.001f;
 
-	std::cout << "\e[35mBase Triangle Area: " << areaBaseTriangle << std::endl;
-	std::cout << "Area ABP: " << areaABP << std::endl;
-	std::cout << "Area ACP: " << areaACP << std::endl;
-	std::cout << "Area BCP: " << areaBCP << "\e[0m\n" << std::endl;
+	// std::cout << "\e[35mBase Triangle Area: " << areaBaseTriangle << std::endl;
+	// std::cout << "Area ABP: " << areaABP << std::endl;
+	// std::cout << "Area ACP: " << areaACP << std::endl;
+	// std::cout << "Area BCP: " << areaBCP << "\e[0m\n" << std::endl;
 
 	if (areaABP < epsilon || areaACP < epsilon || areaBCP < epsilon)
 		return (false);

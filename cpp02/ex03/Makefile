@@ -6,12 +6,12 @@
 #    By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/19 16:53:26 by jveirman          #+#    #+#              #
-#    Updated: 2024/12/20 11:14:48 by jveirman         ###   ########.fr        #
+#    Updated: 2025/03/17 20:46:39 by jveirman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS = main.cpp Fixed.cpp Point.cpp bsp.cpp
-NAME = now_we_talk
+NAME = getToThePoint
 CC = clang++
 CFLAGS = -Wall -Wextra -Werror
 STD = -std=c++98
