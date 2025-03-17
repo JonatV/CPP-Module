@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 16:51:20 by jveirman          #+#    #+#             */
-/*   Updated: 2024/12/19 16:51:21 by jveirman         ###   ########.fr       */
+/*   Updated: 2025/03/17 13:14:56 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ bool Sed::startReplacement() {
 	if (!checkStrings() || !checkFile())
 		return (false);
 	std::string output_text = processInfile();
+	if (output_text.empty())
+		return (std::cerr << "Error: can't read the file, the file is either empty or an error while accessing it has been occured\n", false);
 	std::string new_file_name = createFileName();
 	if (!writeOutfile(output_text, new_file_name))
 		return (false);
@@ -44,13 +46,17 @@ bool Sed::checkFile() {
 		return (std::cerr << "Error: empty file name\n", false);
 	if (file_name.find(".replace") != std::string::npos)
 		return (std::cerr << "Error: file name already contains .replace\n", false);
+	std::ifstream infile(file_name.c_str());
+	if (!infile.is_open())
+		return (std::cerr << "Error: file not found\n", false);
 	return (true);
 }
 
 std::string Sed::processInfile() {
 	std::ifstream infile(file_name.c_str());
+	std::cout << "Processing file: " << file_name << std::endl;
 	if (!infile.is_open())
-		return (std::cerr << "Error: file not found\n", "");
+		return ("");
 	std::string line, output_text;
 	while(getline(infile, line)) {
 		line = findAndReplace(line);
@@ -83,6 +89,13 @@ std::string Sed::createFileName() {
 }
 
 bool Sed::writeOutfile(const std::string &output_text, const std::string &new_file_name) {
+	std::ifstream infile(new_file_name.c_str());
+	if (infile.is_open())
+	{
+		infile.close();
+		return (std::cerr << "Error: " << new_file_name << " file already exists\n", false);
+	}
+	infile.close();
 	std::ofstream outfile(new_file_name.c_str());
 	if (!outfile.is_open())
 		return (std::cerr << "Error: can't create the outfile\n", false);

@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 16:51:25 by jveirman          #+#    #+#             */
-/*   Updated: 2024/12/19 16:51:26 by jveirman         ###   ########.fr       */
+/*   Updated: 2025/03/17 13:09:39 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 int	main(int argc, char **argv)
 {
-	(void)argv;
 	if (argc != 4)
 		std::cout << "Wrong command call (filename string_to_replace new_string)" << std::endl;
 	else
