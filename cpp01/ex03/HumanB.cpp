@@ -6,14 +6,15 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 16:50:54 by jveirman          #+#    #+#             */
-/*   Updated: 2024/12/19 16:50:56 by jveirman         ###   ########.fr       */
+/*   Updated: 2025/03/17 12:47:23 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "HumanB.hpp"
 #include <iostream>
 
-HumanB::HumanB(std::string n) : name(n) {};
+HumanB::HumanB(std::string n) : name(n){};
+HumanB::HumanB(std::string n, Weapon &w) : name(n), weapon(&w){};
 HumanB::~HumanB(){};
 
 void	HumanB::attack(){
