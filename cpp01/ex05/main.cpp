@@ -6,18 +6,16 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 16:52:03 by jveirman          #+#    #+#             */
-/*   Updated: 2024/12/19 16:52:04 by jveirman         ###   ########.fr       */
+/*   Updated: 2025/03/17 14:19:48 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Harl.hpp"
 #include <iostream>
 
-int	main(int argc, char **argv)
+int	main(void)
 {
-	(void)argv;
-	(void)argc;
-	Harl harl;
+	Harl	harl;
 
 	harl.complain("debug");
 	std::cout << std::endl;
