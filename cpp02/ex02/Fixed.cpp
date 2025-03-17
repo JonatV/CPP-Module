@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 16:52:58 by jveirman          #+#    #+#             */
-/*   Updated: 2024/12/19 16:52:58 by jveirman         ###   ########.fr       */
+/*   Updated: 2025/03/17 19:59:23 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,9 @@ int Fixed::toInt(void) const {
 /* @link https://www.youtube.com/watch?v=BnMnozsSPmw
 * this explain how to overload the << operator, common error and good practices (in depth)
 */
-std::ostream &operator<<(std::ostream &COUT, const Fixed &fixed) {
-	COUT << fixed.toFloat();
-	return (COUT);
+std::ostream &operator<<(std::ostream &cout, const Fixed &fixed) {
+	cout << fixed.toFloat();
+	return (cout);
 }
 
 /////////////////////////////////
@@ -130,15 +130,15 @@ Fixed Fixed::operator/(const Fixed &other) const {
 /////////////////////////////////
 //     Increment operators     //
 /////////////////////////////////
+/* https://www.geeksforgeeks.org/increment-and-decrement-operator-overloading-in-c
+* post increment operator overloading paper with examples
+*/
 
 Fixed &Fixed::operator++(void) {
 	this->value++;
 	return (*this);
 }
 
-/* https://www.geeksforgeeks.org/increment-and-decrement-operator-overloading-in-c
-* post increment operator overloading paper with examples
-*/
 Fixed Fixed::operator++(int) {
 	Fixed temp(*this);
 	this->value++;

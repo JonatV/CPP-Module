@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 16:52:57 by jveirman          #+#    #+#             */
-/*   Updated: 2024/12/19 16:52:57 by jveirman         ###   ########.fr       */
+/*   Updated: 2025/03/17 18:36:53 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ class Fixed {
 	public:
 		Fixed();
 		Fixed(const int);
-		Fixed(const Fixed &);
 		Fixed(const float);
+		Fixed(const Fixed &);
 		~Fixed();
 		Fixed &operator=(const Fixed &);
 		bool operator>(const Fixed &) const;
@@ -44,16 +44,16 @@ class Fixed {
 		Fixed &operator--(void);
 		Fixed operator--(int);
 
-		static Fixed &min(Fixed &, Fixed &);
-		static const Fixed &min(const Fixed &, const Fixed &);
-		static Fixed &max(Fixed &, Fixed &);
-		static const Fixed &max(const Fixed &, const Fixed &);
+		static			Fixed &min(Fixed &, Fixed &);
+		static const	Fixed &min(const Fixed &, const Fixed &);
+		static			Fixed &max(Fixed &, Fixed &);
+		static const	Fixed &max(const Fixed &, const Fixed &);
 
-		int getRawBits(void) const;
-		void setRawBits(int const raw);
-		float toFloat(void) const;
-		int toInt(void) const;
+		int		getRawBits(void) const;
+		void	setRawBits(int const raw);
+		float	toFloat(void) const;
+		int		toInt(void) const;
 };
-std::ostream &operator<<(std::ostream &COUT, const Fixed &fixed);
+std::ostream &operator<<(std::ostream &cout, const Fixed &fixed);
 
 #endif
