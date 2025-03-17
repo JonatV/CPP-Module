@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 16:52:00 by jveirman          #+#    #+#             */
-/*   Updated: 2024/12/19 16:52:01 by jveirman         ###   ########.fr       */
+/*   Updated: 2025/03/17 14:27:59 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ void Harl::complain(std::string level)
 	switch (pos)
 	{
 		case 0 ... 3:
-			(this->*ptrMF[pos])();
+			while (pos < 4)
+				(this->*ptrMF[pos++])();
 			break;
 		default:
 			std::cout << "[ Probably complaining about insignificant problems ]" << std::endl;
