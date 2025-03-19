@@ -1,6 +1,6 @@
 SRCS = main.cpp ScalarConverter.cpp
 NAME = converter
-CC = clang++
+CC = c++
 CFLAGS = -Wall -Wextra -Werror
 STD = -std=c++98
 ifdef DEV

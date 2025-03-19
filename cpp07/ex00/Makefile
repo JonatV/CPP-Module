@@ -6,13 +6,13 @@
 #    By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/09 18:48:40 by jveirman          #+#    #+#              #
-#    Updated: 2025/03/09 18:49:21 by jveirman         ###   ########.fr        #
+#    Updated: 2025/03/19 15:37:24 by jveirman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS = main.cpp
 NAME = whatever
-CC = clang++
+CC = c++
 CFLAGS = -Wall -Wextra -Werror
 STD = -std=c++98
 OBJS = $(SRCS:.cpp=.o)

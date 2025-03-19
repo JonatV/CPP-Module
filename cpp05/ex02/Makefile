@@ -6,13 +6,13 @@
 #    By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/19 16:58:50 by jveirman          #+#    #+#              #
-#    Updated: 2024/12/20 11:14:48 by jveirman         ###   ########.fr        #
+#    Updated: 2025/03/19 15:37:24 by jveirman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS = main.cpp Bureaucrat.cpp AForm.cpp ShrubberyCreationForm.cpp RobotomyRequestForm.cpp PresidentialPardonForm.cpp
 NAME = all_sort_of_forms
-CC = clang++
+CC = c++
 CFLAGS = -Wall -Wextra -Werror
 STD = -std=c++98
 ifdef DEV

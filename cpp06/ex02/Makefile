@@ -1,6 +1,6 @@
 SRCS = main.cpp Base.cpp
 NAME = identify
-CC = clang++
+CC = c++
 CFLAGS = -Wall -Wextra -Werror
 STD = -std=c++98
 ifdef DEV

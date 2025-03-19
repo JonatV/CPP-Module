@@ -1,6 +1,6 @@
 SRCS = main.cpp Serialization.cpp
 NAME = serialization
-CC = clang++
+CC = c++
 CFLAGS = -Wall -Wextra -Werror
 STD = -std=c++98
 ifdef DEV
