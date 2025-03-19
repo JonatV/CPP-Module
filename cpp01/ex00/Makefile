@@ -6,12 +6,12 @@
 #    By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/19 16:47:57 by jveirman          #+#    #+#              #
-#    Updated: 2024/12/20 11:14:48 by jveirman         ###   ########.fr        #
+#    Updated: 2025/03/19 12:43:43 by jveirman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = zombie
-CC = clang++
+CC = c++
 CFLAGS = -Wall -Wextra -Werror
 STD = -std=c++98
 ifdef DEV

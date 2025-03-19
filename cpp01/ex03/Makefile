@@ -6,13 +6,13 @@
 #    By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/19 16:50:42 by jveirman          #+#    #+#              #
-#    Updated: 2024/12/20 11:14:48 by jveirman         ###   ########.fr        #
+#    Updated: 2025/03/19 12:44:11 by jveirman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS = main.cpp Weapon.cpp HumanA.cpp HumanB.cpp
 NAME = violence
-CC = clang++
+CC = c++
 CFLAGS = -Wall -Wextra -Werror
 STD = -std=c++98
 ifdef DEV
