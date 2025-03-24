@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 16:54:50 by jveirman          #+#    #+#             */
-/*   Updated: 2024/12/19 16:54:51 by jveirman         ###   ########.fr       */
+/*   Updated: 2025/03/24 15:00:29 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void ClapTrap::displayEnergy(){
 
 void ClapTrap::displayName(){
 	if (this->_hitPoints == 0)
-		std::cout << "[ \e[9m"<< this->_name << "\e[0m DEAD]\t";
+		std::cout << "[\e[9m"<< this->_name << "\e[0m DEAD]\t";
 	else
 		std::cout << "["<< this->_name << " " << this->getHp() << "/" << this->getHpMax() << "]\t";
 }
