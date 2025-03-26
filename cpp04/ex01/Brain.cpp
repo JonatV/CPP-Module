@@ -6,21 +6,29 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 16:56:05 by jveirman          #+#    #+#             */
-/*   Updated: 2024/12/19 16:56:07 by jveirman         ###   ########.fr       */
+/*   Updated: 2025/03/26 11:47:02 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Brain.hpp"
 
 #include <iostream>
+#include <sstream>
 
 Brain::Brain() {
 	std::cout << "\e[2mDefault constructor Brain called\e[0m" << std::endl;
+	for (int i = 0; i < 100; i++)
+	{
+		std::stringstream ss;
+		ss << "Idea " << i;
+		this->ideas[i] = ss.str();
+	}
 }
 
 Brain::Brain(const Brain &other) {
 	std::cout << "\e[2mCopy constructor Brain called\e[0m" << std::endl;
-	*this = other;
+	for (int i = 0; i < 100; i++)
+		this->ideas[i] = other.ideas[i];
 }
 
 Brain::~Brain() {
@@ -34,11 +42,11 @@ Brain &Brain::operator=(const Brain &other){
 		for (int i = 0; i < 100; i++)
 			this->ideas[i] = other.ideas[i];
 	}
-	return *this;
+	return (*this);
 }
 
 std::string Brain::getIdea(int index) const {
-	return this->ideas[index];
+	return (this->ideas[index]);
 }
 
 void Brain::setIdea(const std::string &idea, int index) {

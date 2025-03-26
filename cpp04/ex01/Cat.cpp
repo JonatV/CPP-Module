@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 16:56:03 by jveirman          #+#    #+#             */
-/*   Updated: 2024/12/19 16:56:04 by jveirman         ###   ########.fr       */
+/*   Updated: 2025/03/26 09:56:47 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,5 @@ void Cat::setIdeaInBrain(const std::string &idea, int index) {
 }
 
 std::string Cat::getIdeaInBrain(int index) const {
-	return this->brain->getIdea(index);
+	return (this->brain->getIdea(index));
 }

@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 16:56:12 by jveirman          #+#    #+#             */
-/*   Updated: 2024/12/19 16:56:13 by jveirman         ###   ########.fr       */
+/*   Updated: 2025/03/26 09:55:17 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,12 @@
 
 #include <iostream>
 
-Animal::Animal() : type("Unknown") {
+Animal::Animal() : type("Animal") {
 	std::cout << "\e[2mDefault constructor Animal called\e[0m" << std::endl;
 }
 
 Animal::Animal(const Animal &other) : type(other.type) {
 	std::cout << "\e[2mCopy constructor Animal called\e[0m" << std::endl;
-	
 }
 
 Animal::~Animal() {
@@ -35,7 +34,7 @@ Animal &Animal::operator=(const Animal &other){
 }
 
 void Animal::makeSound() const {
-	std::cout << "Unknow sound" << std::endl;
+	std::cout << "Unknown sound" << std::endl;
 }
 
 std::string Animal::getType() const{

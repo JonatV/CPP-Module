@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 16:55:58 by jveirman          #+#    #+#             */
-/*   Updated: 2024/12/19 16:55:59 by jveirman         ###   ########.fr       */
+/*   Updated: 2025/03/26 11:48:20 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ int	main(void)
 	std::cout << std::endl;
 
 	Dog *dog = new Dog();
-
+	for (int i = 0; i < 100; i++)
+		std::cout << dog->getIdeaInBrain(i) << std::endl;
 	std::cout << std::endl;
 	dog->setIdeaInBrain("I'm a dog", 0);
 	dog->setIdeaInBrain("I'm a big dog", 1);

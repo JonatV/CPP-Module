@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 16:56:16 by jveirman          #+#    #+#             */
-/*   Updated: 2024/12/19 16:56:18 by jveirman         ###   ########.fr       */
+/*   Updated: 2025/03/26 09:56:09 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ WrongAnimal::WrongAnimal() : type("UnknownWrong") {
 
 WrongAnimal::WrongAnimal(const WrongAnimal &other) : type(other.type) {
 	std::cout << "\e[2mCopy constructor WrongAnimal called\e[0m" << std::endl;
-	
 }
 
 WrongAnimal::~WrongAnimal() {
