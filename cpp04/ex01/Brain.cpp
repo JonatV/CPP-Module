@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 16:56:05 by jveirman          #+#    #+#             */
-/*   Updated: 2025/03/26 11:47:02 by jveirman         ###   ########.fr       */
+/*   Updated: 2025/03/26 12:06:04 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,19 @@ Brain &Brain::operator=(const Brain &other){
 }
 
 std::string Brain::getIdea(int index) const {
+	if (index < 0 || index >= 100)
+	{
+		std::cerr << "Error: Index out of bounds in getIdea" << std::endl;
+		return ("");
+	}
 	return (this->ideas[index]);
 }
 
 void Brain::setIdea(const std::string &idea, int index) {
+	if (index < 0 || index >= 100)
+	{
+		std::cerr << "Error: Index out of bounds in setIdea" << std::endl;
+		return;
+	}
 	this->ideas[index] = idea;
 }
