@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 16:55:15 by jveirman          #+#    #+#             */
-/*   Updated: 2024/12/19 16:55:16 by jveirman         ###   ########.fr       */
+/*   Updated: 2025/03/26 09:53:01 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,7 @@ class WrongAnimal
 		WrongAnimal();
 		WrongAnimal(const WrongAnimal &);
 		virtual ~WrongAnimal();
-
 		WrongAnimal &operator=(const WrongAnimal &);
-
 		void makeSound() const;
 
 		// getters

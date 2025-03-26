@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 16:55:23 by jveirman          #+#    #+#             */
-/*   Updated: 2024/12/19 16:55:23 by jveirman         ###   ########.fr       */
+/*   Updated: 2025/03/26 09:33:39 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ Cat::Cat() : Animal() {
 
 Cat::Cat(const Cat &other) : Animal(other) {
 	std::cout << "\e[2mCopy constructor Cat called\e[0m" << std::endl;
-	*this = other;
+	this->type = other.type;
 }
 
 Cat::~Cat() {

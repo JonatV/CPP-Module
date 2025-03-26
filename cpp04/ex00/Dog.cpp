@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 16:55:21 by jveirman          #+#    #+#             */
-/*   Updated: 2024/12/19 16:55:21 by jveirman         ###   ########.fr       */
+/*   Updated: 2025/03/26 09:35:53 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ Dog::Dog() : Animal() {
 
 Dog::Dog(const Dog &other) : Animal(other) {
 	std::cout << "\e[2mCopy constructor Dog called\e[0m" << std::endl;
-	*this = other;
+	this->type = other.type;
 }
 
 Dog::~Dog() {

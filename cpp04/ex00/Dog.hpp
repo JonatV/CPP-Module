@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 16:55:20 by jveirman          #+#    #+#             */
-/*   Updated: 2024/12/19 16:55:20 by jveirman         ###   ########.fr       */
+/*   Updated: 2025/03/26 09:35:58 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,11 @@
 
 class Dog : public Animal
 {
-	private:
-		// std::string type;
 	public:
 		Dog();
 		Dog(const Dog &);
 		~Dog();
-
 		Dog &operator=(const Dog &);
-
 		void makeSound() const;
 };
 
