@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 14:01:20 by jveirman          #+#    #+#             */
-/*   Updated: 2025/03/27 04:09:01 by jveirman         ###   ########.fr       */
+/*   Updated: 2025/03/27 04:43:47 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,10 @@ Character &Character::operator=(const Character &other)
 	{
 		if (_inventory[i])
 			delete _inventory[i];
-		_inventory[i] = other._inventory[i]->clone();
+		if (!other._inventory[i])
+			_inventory[i] = NULL;
+		else
+			_inventory[i] = other._inventory[i]->clone();
 	}
 	for (std::list<AMateria*>::iterator it = _unequipped.begin(); it != _unequipped.end(); it++)
 		delete *it;
