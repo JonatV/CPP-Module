@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 13:11:09 by jveirman          #+#    #+#             */
-/*   Updated: 2025/03/26 14:04:29 by jveirman         ###   ########.fr       */
+/*   Updated: 2025/03/27 03:20:33 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,5 @@ std::string const &AMateria::getType() const
 
 void AMateria::use(ICharacter &target)
 {
-	std::cout << "Default use on " << target.getName() << std::endl;
+	std::cout << "Unknown spell used on " << target.getName() << std::endl;
 }

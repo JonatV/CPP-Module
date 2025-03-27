@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 14:01:20 by jveirman          #+#    #+#             */
-/*   Updated: 2025/03/27 03:13:50 by jveirman         ###   ########.fr       */
+/*   Updated: 2025/03/27 04:09:01 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ Character::~Character()
 	}
 	for (std::list<AMateria*>::iterator it = _unequipped.begin(); it != _unequipped.end(); it++)
 		delete *it;
+	_unequipped.clear();
 }
 
-// todo - check if the it works correctly for the subject
 Character &Character::operator=(const Character &other)
 {
 	std::cout << "\e[2mAssignation operator Character called\e[0m" << std::endl;
@@ -59,14 +59,10 @@ Character &Character::operator=(const Character &other)
 		_inventory[i] = other._inventory[i]->clone();
 	}
 	for (std::list<AMateria*>::iterator it = _unequipped.begin(); it != _unequipped.end(); it++)
-	{
 		delete *it;
-	}
 	_unequipped.clear();
 	for (std::list<AMateria*>::const_iterator it = other._unequipped.begin(); it != other._unequipped.end(); it++)
-	{
 		_unequipped.push_back((*it)->clone());
-	}
 	return (*this);
 }
 
@@ -90,7 +86,6 @@ void Character::equip(AMateria *mat)
 		{
 			this->_inventory[i] = mat;
 			std::cout << "Equipped " << mat->getType() << std::endl;
-			std::cout << "Space left: " << MAX_MATERIA - i - 1 << std::endl;
 			for (std::list<AMateria*>::iterator it = _unequipped.begin(); it != _unequipped.end(); it++)
 			{
 				if (*it == mat)
