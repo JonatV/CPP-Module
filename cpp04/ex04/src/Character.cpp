@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 14:01:20 by jveirman          #+#    #+#             */
-/*   Updated: 2025/03/26 14:08:40 by jveirman         ###   ########.fr       */
+/*   Updated: 2025/03/26 18:20:04 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,52 @@ Character::~Character()
 		if (_inventory[i])
 			delete _inventory[i];
 	}
+	for (std::list<AMateria*>::iterator it = _unequipped.begin(); it != _unequipped.end(); it++)
+	{
+		delete *it;
+	}
+}
+
+Character &Character::operator=(const Character &other)
+{
+	std::cout << "\e[2mAssignation operator Character called\e[0m" << std::endl;
+	if (this == &other)
+		return (*this);
+	_name = other._name;
+	for (int i = 0; i < MAX_MATERIA; i++)
+	{
+		if (_inventory[i])
+			delete _inventory[i];
+		_inventory[i] = other._inventory[i]->clone();
+	}
+	for (std::list<AMateria*>::iterator it = _unequipped.begin(); it != _unequipped.end(); it++)
+	{
+		delete *it;
+	}
+	_unequipped.clear();
+	for (std::list<AMateria*>::const_iterator it = other._unequipped.begin(); it != other._unequipped.end(); it++)
+	{
+		_unequipped.push_back((*it)->clone());
+	}
+	return (*this);
 }
 
 const std::string &Character::getName() const
 {
 	return (this->_name);
+}
+
+void Character::equip(AMateria *mat)
+{
+	if (!mat)
+		return ;
+	for (int i = 0; i < MAX_MATERIA; i++)
+	{
+		if (!_inventory[i])
+		{
+			_inventory[i] = mat;
+			return ;
+		}
+	}
+	_unequipped.push_back(mat);
 }

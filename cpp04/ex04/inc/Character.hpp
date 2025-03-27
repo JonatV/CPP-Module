@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 12:53:48 by jveirman          #+#    #+#             */
-/*   Updated: 2025/03/26 14:09:25 by jveirman         ###   ########.fr       */
+/*   Updated: 2025/03/26 16:52:24 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 #include "ICharacter.hpp"
 #include "AMateria.hpp"
-#include <vector>
+#include <list>
 
 #define MAX_MATERIA 4
 
@@ -26,7 +26,7 @@ class Character : public ICharacter
 		AMateria	*_inventory[MAX_MATERIA];
 		// unequipped materia will be register here
 		// and will be delete in the destructor
-		std::vector<AMateria*> _unequippedStuff;
+		std::list<AMateria*> _unequipped;
 	public:
 		Character();
 		Character(std::string name);
