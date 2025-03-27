@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 13:20:09 by jveirman          #+#    #+#             */
-/*   Updated: 2025/03/26 13:23:41 by jveirman         ###   ########.fr       */
+/*   Updated: 2025/03/27 03:52:47 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,11 @@ Ice::~Ice()
 
 AMateria* Ice::clone() const
 {
-	return (new Ice(*this));
+	Ice *clone = new Ice;
+	return (clone);
 }
 
 void Ice::use(ICharacter &target)
 {
-	std::cout << "* shoots an ice bolt at " << target.getName() << " *" << std::endl;
+	std::cout << "\e[34m* shoots an ice bolt at " << target.getName() << " *\e[0m" << std::endl;
 }

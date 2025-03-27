@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 13:20:09 by jveirman          #+#    #+#             */
-/*   Updated: 2025/03/26 13:28:53 by jveirman         ###   ########.fr       */
+/*   Updated: 2025/03/27 03:52:24 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,11 @@ Cure::~Cure()
 
 AMateria* Cure::clone() const
 {
-	return (new Cure(*this));
+	Cure *clone = new Cure;
+	return (clone);
 }
 
 void Cure::use(ICharacter &target)
 {
-	std::cout << "* heals " << target.getName() << "'s wounds *" << std::endl;
+	std::cout << "\e[31m* heals " << target.getName() << "'s wounds *\e[0m" << std::endl;
 }
