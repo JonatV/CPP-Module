@@ -87,5 +87,12 @@ void Character::equip(AMateria *mat)
 			return ;
 		}
 	}
-	_unequipped.push_back(mat);
+void Character::showInventory() const
+{
+	std::cout << "Inventory of " << getName() << std::endl;
+	for (int i = 0; i < MAX_MATERIA; i++)
+	{
+		if (_inventory[i])
+			std::cout << _inventory[i]->getType() << std::endl;
+	}
 }
