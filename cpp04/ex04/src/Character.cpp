@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 14:01:20 by jveirman          #+#    #+#             */
-/*   Updated: 2025/03/27 02:46:13 by jveirman         ###   ########.fr       */
+/*   Updated: 2025/03/27 03:04:36 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ Character::Character(const Character &other)
 	*this = other;
 }
 
+// https://www.w3schools.com/cpp/cpp_iterators.asp for better understand the iterators on list
 Character::~Character()
 {
 	std::cout << "\e[2mDestructor Character called\e[0m" << std::endl;
@@ -40,6 +41,8 @@ Character::~Character()
 		if (this->_inventory[i])
 			delete this->_inventory[i];
 	}
+	for (std::list<AMateria*>::iterator it = _unequipped.begin(); it != _unequipped.end(); it++)
+		delete *it;
 }
 
 // todo - check if the it works correctly for the subject
@@ -92,6 +95,19 @@ void Character::equip(AMateria *mat)
 		}
 	}
 	std::cout << "Inventory full, can't equip " << mat->getType() << std::endl;
+}
+
+void Character::unequip(int idx)
+{
+	if (idx < 0 || idx > 3)
+		std::cout << "Invalid index number" << std::endl;
+	else if (!_inventory[idx])
+		std::cout << "Slot empty, can't unequip" << std::endl;
+	else
+	{
+		this->_unequipped.push_back(_inventory[idx]);
+		_inventory[idx] = NULL;
+	}
 }
 
 void Character::showInventory() const

@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 13:18:11 by jveirman          #+#    #+#             */
-/*   Updated: 2025/03/27 02:44:09 by jveirman         ###   ########.fr       */
+/*   Updated: 2025/03/27 03:04:57 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	main(void)
 	AMateria *ice2 = new Ice();
 	AMateria *cure = new Cure();
 	AMateria *cure2 = new Cure();
+	AMateria *cure3 = new Cure();
 
 	ICharacter *bob = new Character("Bob");
 
@@ -28,8 +29,12 @@ int	main(void)
 	bob->equip(ice2);
 	bob->equip(cure);
 	bob->equip(cure2);
-
 	bob->showInventory();
+	bob->equip(cure3);
+	bob->unequip(0);
+	bob->equip(cure3);
+	bob->showInventory();
+	bob->unequip(2);
 
 	delete bob;
 	return (0);
