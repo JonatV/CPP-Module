@@ -6,11 +6,11 @@
 #    By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/19 16:57:04 by jveirman          #+#    #+#              #
-#    Updated: 2025/03/19 15:37:24 by jveirman         ###   ########.fr        #
+#    Updated: 2025/03/27 04:15:57 by jveirman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS = main.cpp AMateria.cpp Character.cpp Cure.cpp Ice.cpp
+SRCS = main.cpp src/AMateria.cpp src/Ice.cpp src/Cure.cpp src/Character.cpp src/MateriaSource.cpp
 NAME = interface
 CC = c++
 CFLAGS = -Wall -Wextra -Werror
