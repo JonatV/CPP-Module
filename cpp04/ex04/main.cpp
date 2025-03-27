@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 13:18:11 by jveirman          #+#    #+#             */
-/*   Updated: 2025/03/27 03:55:31 by jveirman         ###   ########.fr       */
+/*   Updated: 2025/03/27 04:47:19 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,15 @@
 #include "inc/Ice.hpp"
 #include "inc/Cure.hpp"
 #include "inc/Character.hpp"
+#include "inc/MateriaSource.hpp"
 
 int	main(void)
 {
-	AMateria *ice = new Ice();
+	MateriaSource* src = new MateriaSource();
+	src->learnMateria(new Ice());
+	src->learnMateria(new Cure());
 	AMateria *ice2 = new Ice();
 	AMateria *iceBobClone = new Ice();
-	AMateria *cure = new Cure();
 	AMateria *cure2 = new Cure();
 	AMateria *cure3 = new Cure();
 	AMateria *cureBobClone = new Cure();
@@ -28,10 +30,13 @@ int	main(void)
 	ICharacter *bob = new Character("Bob");
 	ICharacter *bobClone = new Character("BobClone");
 	ICharacter *gandalf = new Character("Gandalf");
+
+	src->showBook();
 	
-	bob->equip(ice);
+	AMateria* tmp;
+	tmp = src->createMateria("ice");
+	bob->equip(tmp);
 	bob->equip(ice2);
-	bob->equip(cure);
 	bob->equip(cure2);
 	bob->equip(cure3);
 	bob->use(0, *gandalf);
@@ -51,5 +56,6 @@ int	main(void)
 	delete bobClone;
 	delete bob;
 	delete gandalf;
+	delete src;
 	return (0);
 }

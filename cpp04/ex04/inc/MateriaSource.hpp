@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 13:04:54 by jveirman          #+#    #+#             */
-/*   Updated: 2025/03/26 13:10:05 by jveirman         ###   ########.fr       */
+/*   Updated: 2025/03/27 04:30:53 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@
 #include "IMateriaSource.hpp"
 #include "AMateria.hpp"
 
-#define MAX_MATERIA 4
+#define MAX_SPELL 4
 
 class MateriaSource : public IMateriaSource
 {
 	private:
-		AMateria	*_inventory[MAX_MATERIA];
+		AMateria	*_bookOfSpells[MAX_SPELL];
 	public:
 		MateriaSource();
 		MateriaSource(const MateriaSource &other);
@@ -30,6 +30,8 @@ class MateriaSource : public IMateriaSource
 
 		void learnMateria(AMateria*);
 		AMateria* createMateria(std::string const & type);
+
+		void showBook() const;
 };
 
 #endif
