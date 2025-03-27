@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 14:01:20 by jveirman          #+#    #+#             */
-/*   Updated: 2025/03/26 18:20:04 by jveirman         ###   ########.fr       */
+/*   Updated: 2025/03/27 02:46:13 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,12 @@ Character::~Character()
 	std::cout << "\e[2mDestructor Character called\e[0m" << std::endl;
 	for (int i = 0; i < MAX_MATERIA; i++)
 	{
-		if (_inventory[i])
-			delete _inventory[i];
-	}
-	for (std::list<AMateria*>::iterator it = _unequipped.begin(); it != _unequipped.end(); it++)
-	{
-		delete *it;
+		if (this->_inventory[i])
+			delete this->_inventory[i];
 	}
 }
 
+// todo - check if the it works correctly for the subject
 Character &Character::operator=(const Character &other)
 {
 	std::cout << "\e[2mAssignation operator Character called\e[0m" << std::endl;
@@ -81,12 +78,22 @@ void Character::equip(AMateria *mat)
 		return ;
 	for (int i = 0; i < MAX_MATERIA; i++)
 	{
-		if (!_inventory[i])
+		if (this->_inventory[i] == mat)
 		{
-			_inventory[i] = mat;
+			std::cout << mat->getType() << " already equipped" << std::endl;
+			return ;
+		}
+		if (!this->_inventory[i])
+		{
+			this->_inventory[i] = mat;
+			std::cout << "Equipped " << mat->getType() << std::endl;
+			std::cout << "Space left: " << MAX_MATERIA - i - 1 << std::endl;
 			return ;
 		}
 	}
+	std::cout << "Inventory full, can't equip " << mat->getType() << std::endl;
+}
+
 void Character::showInventory() const
 {
 	std::cout << "Inventory of " << getName() << std::endl;
