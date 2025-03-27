@@ -116,6 +116,17 @@ void Character::unequip(int idx)
 	}
 }
 
+void Character::use(int idx, ICharacter &target)
+{
+	
+	if (idx < 0 || idx > 3)
+		std::cout << "Invalid index number" << std::endl;
+	else if (!_inventory[idx])
+		std::cout << "Slot empty, can't use it" << std::endl;
+	else
+		_inventory[idx]->use(target);
+}
+
 void Character::showInventory() const
 {
 	std::cout << "Inventory of " << getName() << std::endl;

@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 12:53:48 by jveirman          #+#    #+#             */
-/*   Updated: 2025/03/27 02:48:32 by jveirman         ###   ########.fr       */
+/*   Updated: 2025/03/27 03:17:33 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ class Character : public ICharacter
 		// methods
 		void equip(AMateria* m);
 		void unequip(int idx);
-		// void use(int idx, ICharacter& target);
+		void use(int idx, ICharacter& target);
 		void showInventory() const;
 
 		// getters
