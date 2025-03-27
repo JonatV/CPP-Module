@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 14:01:20 by jveirman          #+#    #+#             */
-/*   Updated: 2025/03/27 03:04:36 by jveirman         ###   ########.fr       */
+/*   Updated: 2025/03/27 03:13:50 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,10 +91,16 @@ void Character::equip(AMateria *mat)
 			this->_inventory[i] = mat;
 			std::cout << "Equipped " << mat->getType() << std::endl;
 			std::cout << "Space left: " << MAX_MATERIA - i - 1 << std::endl;
+			for (std::list<AMateria*>::iterator it = _unequipped.begin(); it != _unequipped.end(); it++)
+			{
+				if (*it == mat)
+					*it = NULL;
+			}
 			return ;
 		}
 	}
 	std::cout << "Inventory full, can't equip " << mat->getType() << std::endl;
+	_unequipped.push_back(mat);
 }
 
 void Character::unequip(int idx)
