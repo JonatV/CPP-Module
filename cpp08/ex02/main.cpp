@@ -34,15 +34,15 @@ int main() {
 	std::cout << "=== Testing Default Constructor ===" << std::endl;
 	MutantStack<int> mstack;
 
-	mstack.push(5);
-	mstack.push(17);
+	mstack.push(1);
+	mstack.push(10);
 	std::cout << "Top element: " << mstack.top() << std::endl;
 	mstack.pop();
 	std::cout << "Size after pop: " << mstack.size() << std::endl;
-	mstack.push(3);
-	mstack.push(5);
-	mstack.push(737);
-	mstack.push(0);
+	mstack.push(100);
+	mstack.push(1000);
+	mstack.push(10000);
+	mstack.push(100000);
 
 	std::cout << "\n=== Testing Iterators ===" << std::endl;
 	std::cout << "Iterating through stack:" << std::endl;
