@@ -17,20 +17,31 @@ struct Date {
 	int	day;
 
 	bool operator<(const Date &) const;
+	bool operator==(const Date &) const;
 };
 
 class BitcoinExchange {
 	private:
+		// error handling
+		int						_currentLine;
+		Date					_defaultDate;
+		// member variables
 		std::string				_dbFileName;
 		std::map<Date, double>	_db;
+		
+		// member functions
+		std::string						to_string(int);
+		void							parseAndStoreCsvLine(const std::pair<std::string, double> &csv_line, const Date &previous_date);
+		void							checkDateValidity(int year, int month, int day);
+		void							checkValueValidity(double);
+		std::pair<std::string, double>	splitLine(const std::string &line, char delimiter);
 	public:
 		BitcoinExchange();
 		// BitcoinExchange(const BitcoinExchange &copy);
 		// BitcoinExchange &operator=(BitcoinExchange const &src); 
 		~BitcoinExchange();
-
+		
 		void dbHandler();
-		std::pair<std::string, double> splitLine(const std::string &line, char delimiter = ',');
 };
 
 #endif
