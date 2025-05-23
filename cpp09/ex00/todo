@@ -1,0 +1,17 @@
+
+- Handle the CSV with bitcoin exchange
+	>file check
+	-OK! Check if the file exist OK!
+	-OK! Check if file empty
+	>register entries and check at the same time
+	- getline
+		- first need to be the description of the value
+			- if next is empty -> error
+		>for every other
+			-OK! check if there is two section well separated with the choosen separator
+			-OK! check if first element is a correct date format - OK! check if second is a correct double format
+			- check if first is not a dup - check if first is higher than the previous date
+			- register it in the map
+- print the result
+
+- keep track if theres no entries
