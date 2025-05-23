@@ -42,6 +42,16 @@ Array<T>::Array(unsigned int n) : _size(n)
 }
 
 template <typename T>
+Array<T>::Array(const Array &src)
+{
+	std::cout << "\e[2mCopy constructor Array called\e[0m" << std::endl;
+	_size = src._size;
+	_array = new T[_size];
+	for (unsigned int i = 0; i < _size; i++)
+		_array[i] = src._array[i];
+}
+
+template <typename T>
 Array<T>::~Array()
 {
 	std::cout << "\e[2mDestructor Array called\e[0m" << std::endl;
