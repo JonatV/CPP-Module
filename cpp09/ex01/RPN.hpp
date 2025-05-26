@@ -5,6 +5,8 @@
 #include <stdexcept>
 #include <iostream>
 
+// container format: std::stack<double>
+
 class RPN {
 	public:
 		RPN();

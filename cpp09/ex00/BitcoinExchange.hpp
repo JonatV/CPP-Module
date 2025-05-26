@@ -10,7 +10,7 @@
 #define N "\033[0m"
 
 // string format to parse for the date YYYY-MM-DD (i.e. 2022-09-13) and the value will be a float (i.e. 30239.19)
-
+// container format: std::map<Date, float>
 struct Date {
 	int	year;
 	int	month;
