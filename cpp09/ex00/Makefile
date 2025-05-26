@@ -4,14 +4,18 @@ CC = c++
 CFLAGS = -Wall -Wextra -Werror
 STD = -std=c++98
 OBJS = $(SRCS:.cpp=.o)
-
+ifdef DEV
+	DEV_FLAGS = -g3 -fsanitize=address
+else
+	DEV_FLAGS =
+endif
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(STD) $(OBJS) -o $(NAME)
+	$(CC) $(CFLAGS) $(STD) $(DEV_FLAGS) $(OBJS) -o $(NAME)
 
 %.o: %.cpp
-	$(CC) $(CFLAGS) $(STD) -c $< -o $@
+	$(CC) $(CFLAGS) $(STD) $(DEV_FLAGS) -c $< -o $@
 
 clean:
 	rm -f $(OBJS)
