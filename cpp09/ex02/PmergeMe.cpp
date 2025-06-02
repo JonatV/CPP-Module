@@ -1,6 +1,6 @@
 #include "PmergeMe.hpp"
 
-PmergeMe::PmergeMe(const char **begin, const char **end) : _firstRun(true){
+PmergeMe::PmergeMe(const char **begin, const char **end) {
 	// Start by checking if the input is valid
 	// only integers are allowed
 	// no negative numbers
@@ -19,24 +19,32 @@ PmergeMe::PmergeMe(const char **begin, const char **end) : _firstRun(true){
 		std::cerr << RED << "Error: " << e.what() << N << std::endl;
 		exit(EXIT_FAILURE);
 	}
+	// VECTOR
 	// start chrono
 	struct timespec start, finish;
 	clock_gettime(CLOCK_MONOTONIC, &start);
+	// init vector
+	initVector();
 	// run merge
-	mergeVector(begin, end);
+	mergeVector(_vector);
 	// stop chrono
 	clock_gettime(CLOCK_MONOTONIC, &finish);
 	// print results
 	showStats(finish, start, VECTOR);
 	std::cout << std::endl;
+
+	struct timespec startDeque, finishDeque;
+	// DEQUE
 	// start chrono
-	clock_gettime(CLOCK_MONOTONIC, &start);
+	clock_gettime(CLOCK_MONOTONIC, &startDeque);
+	// init deque
+	initDeque();
 	// run merge
-	mergeDeque(begin, end);
+	mergeDeque(_deque);
 	// stop chrono
-	clock_gettime(CLOCK_MONOTONIC, &finish);
+	clock_gettime(CLOCK_MONOTONIC, &finishDeque);
 	// print results
-	showStats(finish, start, DEQUE);
+	showStats(finishDeque, startDeque, DEQUE);
 }
 
 void PmergeMe::showStats(timespec &finish, timespec &start, const std::string &containerType) const
@@ -48,38 +56,96 @@ void PmergeMe::showStats(timespec &finish, timespec &start, const std::string &c
 	std::cout << std::fixed;
 	std::cout.precision(5); // 5 digits after the decimal point
 	std::cout << "Time taken for " << containerType << " merge: " << microseconds << " us" << std::endl;
+	if (containerType == VECTOR) {
+		std::cout << "Sorted vector: ";
+		for (std::vector<int>::const_iterator it = _vector.begin(); it != _vector.end(); ++it) {
+			std::cout << *it << " ";
+		}
+		std::cout << std::endl;
+	} else if (containerType == DEQUE) {
+		std::cout << "Sorted deque: ";
+		for (std::deque<int>::const_iterator it = _deque.begin(); it != _deque.end(); ++it) {
+			std::cout << *it << " ";
+		}
+		std::cout << std::endl;
+	}
 }
 
-void PmergeMe::mergeVector(const char **begin, const char **end)
+void PmergeMe::initVector()
 {
-	//Initialize vector
-	if (_firstRun) {
-		std::cout << GREY << "First run, initializing vector" << N << std::endl;
-	} else {
-		std::cout << GREY << "Subsequent run, merging vector" << N << std::endl;
-	}
-	if (_firstRun) {
-		_firstRun = false;
-		for (const char **it = begin; it != end; ++it)
-			_vector.push_back(std::atoi(*it));
-	}
-	// fordjohnson
+	for (std::vector<int>::const_iterator it = _arguments.begin(); it != _arguments.end(); ++it)
+		_vector.push_back(*it);
 }
 
-void PmergeMe::mergeDeque(const char **begin, const char **end)
+void PmergeMe::mergeVector(std::vector<int> &vec)
 {
-	//Initialize deque
-	if (_firstRun) {
-		std::cout << GREY << "First run, initializing deque" << N << std::endl;
-	} else {
-		std::cout << GREY << "Subsequent run, merging deque" << N << std::endl;
+	// fordjohnson (merge insert)
+	//todo check for <= 1 element in vector
+	if (vec.size() <= 1) {
+		std::cout << "Vector is already sorted or has only one element." << std::endl;
+		return;
 	}
-	if (_firstRun) {
-		_firstRun = false;
-		for (const char **it = begin; it != end; ++it)
-			_deque.push_back(std::atoi(*it));
+	// print vector
+	std::cout << "Merging vector: ";
+	for (std::vector<int>::const_iterator it = vec.begin(); it != vec.end(); ++it) {
+		std::cout << *it << " ";
 	}
+	std::cout << std::endl;
+	std::vector<int> small;
+	std::vector<int> large;
+	std::vector<int>::iterator it = vec.begin();
+	while (it != vec.end()) {
+		int	first = *it++;
+		if (it == vec.end()) {
+			small.push_back(first);
+			break;
+		}
+		int	second = *it++;
+
+		if (first < second) {
+			small.push_back(first);
+			large.push_back(second);
+		} else {
+			small.push_back(second);
+			large.push_back(first);
+		}
+	}
+	std::cout << BLUE << "Small vector: ";
+	for (std::vector<int>::const_iterator it = small.begin(); it != small.end(); ++it) {
+		std::cout << *it << " ";
+	}
+	std::cout << N << std::endl;
+	std::cout << PURPLE << "Large vector: ";
+	for (std::vector<int>::const_iterator it = large.begin(); it != large.end(); ++it) {
+		std::cout << *it << " ";
+	}
+	std::cout << N << std::endl;
+	mergeVector(large);
+	std::vector<int> merged = large;
+	std::vector<int>::iterator smallIt = small.begin();
+	while(smallIt != small.end()) {
+		std::vector<int>::iterator pos = std::lower_bound(merged.begin(), merged.end(), *smallIt);
+		merged.insert(pos, *smallIt);
+		++smallIt;
+	}
+	std::cout << "Merged vector: ";
+	for (std::vector<int>::const_iterator it = merged.begin(); it != merged.end(); ++it) {
+		std::cout << *it << " ";
+	}
+	std::cout << std::endl;
+	vec = merged;
+}
+
+void PmergeMe::initDeque()
+{
+	for (std::vector<int>::const_iterator it = _arguments.begin(); it != _arguments.end(); ++it)
+		_deque.push_back(*it);
+}
+
+void PmergeMe::mergeDeque(std::deque<int> &deq)
+{
 	// fordjohnson
+	(void)deq;
 }
 
 PmergeMe::~PmergeMe() {

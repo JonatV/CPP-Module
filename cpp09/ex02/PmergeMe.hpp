@@ -28,11 +28,12 @@ class PmergeMe {
 		std::vector<int>	_vector;
 		std::vector<int>	_arguments;
 		std::deque<int>		_deque;
-		bool				_firstRun;
 
 		void checkValidInput(const char **begin, const char **end);
-		void mergeVector(const char **begin, const char **end);
-		void mergeDeque(const char **begin, const char **end);
+		void initVector();
+		void initDeque();
+		void mergeVector(std::vector<int> &vec);
+		void mergeDeque(std::deque<int> &deq);
 		void showStats(timespec &finish, timespec &start, const std::string &containerType) const;
 
 
