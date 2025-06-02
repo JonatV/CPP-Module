@@ -1,6 +1,6 @@
 #include "PmergeMe.hpp"
 
-PmergeMe::PmergeMe(const char **begin, const char **end) {
+PmergeMe::PmergeMe(const char **begin, const char **end) : _firstRun(true){
 	// Start by checking if the input is valid
 	// only integers are allowed
 	// no negative numbers
@@ -12,7 +12,11 @@ PmergeMe::PmergeMe(const char **begin, const char **end) {
 		checkValidInput(begin, end);
 	}
 	catch (const std::invalid_argument &e) {
-		std::cerr << "Error: " << e.what() << std::endl;
+		std::cerr << RED << "Error: " << e.what() << N << std::endl;
+		exit(EXIT_FAILURE);
+	}
+	catch (const std::exception &e) {
+		std::cerr << RED << "Error: " << e.what() << N << std::endl;
 		exit(EXIT_FAILURE);
 	}
 	//fork to run both vector and deque
@@ -74,9 +78,12 @@ void PmergeMe::showStats(timespec &finish, timespec &start, const std::string &c
 void PmergeMe::mergeVector(const char **begin, const char **end)
 {
 	//Initialize vector
-	for (const char **it = begin; it != end; ++it)
-	{
-		_vector.push_back(std::atoi(*it));
+	if (_firstRun) {
+		_firstRun = false;
+		for (const char **it = begin; it != end; ++it)
+		{
+			_vector.push_back(std::atoi(*it));
+		}
 	}
 	// fordjohnson
 }
@@ -95,35 +102,55 @@ PmergeMe::~PmergeMe() {
 	std::cout << GREY << "Destructor called" << N << std::endl;
 }
 
-void PmergeMe::checkValidInput(const char **begin, const char **end) const {
+void PmergeMe::checkValidInput(const char **begin, const char **end) {
 	if (begin == end) {
 		throw std::invalid_argument("No input provided");
 	}
 	for (const char **it = begin; it != end; ++it) {
 		std::string arg(*it);
-		size_t i = 0;
-		
+		std::istringstream iss(arg);
+		std::string token;
 		if (arg.empty()) {
 			throw std::invalid_argument("Empty input found");
 		}
-		while (i < arg.length())
-		{
-			// Check for leading spaces
-			while (i < arg.length() && std::isspace(arg[i]))
-				i++;
-			if (i >= arg.length()) {
-				throw std::invalid_argument("Empty input found");
+		while (iss >> token) {
+			std::cout << "Checking token: " << token << std::endl;
+			if (token[0] == '-') {
+				throw std::invalid_argument("Negative numbers are not allowed: " + token);
 			}
-			if (arg[i] == '-') {
-				throw std::invalid_argument("Negative numbers are not allowed");
+			if (token[0] == '+' && token.length() > 1) {
+				token.erase(0, 1); // Remove leading '+'
+			} else if (token[0] == '+') {
+				throw std::invalid_argument("Invalid input: " + token);
 			}
-			// advance till non-digit character
-			while (std::isdigit(arg[i])) i++;
-			// Check if we reached the end of the string or a space, if not that means we have a non-numeric character
-			if (i < arg.length() && !std::isspace(arg[i])) {
-				throw std::invalid_argument("Non-numeric character found: " + std::string(1, arg[i]));
+			for (size_t i = 0; i < token.length(); ++i) {
+				if (!std::isdigit(token[i])) {
+					throw std::invalid_argument("Non-numeric character found: " + token);
+				}
 			}
+			int num = std::atoi(token.c_str());
+			if (std::find(_arguments.begin(), _arguments.end(), num) != _arguments.end()) {
+				throw std::invalid_argument("Duplicate number found: " + to_string(num));
+			}
+			_arguments.push_back(num);
 		}
 	}
+	if (_arguments.empty()) {
+		throw std::invalid_argument("No valid integers found in input");
+	}
+	// print the arguments //dev
+	std::cout << "Valid input: ";
+	for (std::vector<int>::const_iterator it = _arguments.begin(); it != _arguments.end(); ++it) {
+		std::cout << *it << " ";
+	}
+	std::cout << std::endl;
 }
 
+
+// helper function
+std::string PmergeMe::to_string(int value) {
+	std::ostringstream	oss;
+
+	oss << value;
+	return (oss.str());
+}
