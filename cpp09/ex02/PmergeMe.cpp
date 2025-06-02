@@ -19,49 +19,24 @@ PmergeMe::PmergeMe(const char **begin, const char **end) : _firstRun(true){
 		std::cerr << RED << "Error: " << e.what() << N << std::endl;
 		exit(EXIT_FAILURE);
 	}
-	//fork to run both vector and deque
-	pid_t pid = fork();
-	if (pid < 0)
-	{
-		std::cerr << "Fork failed" << std::endl;
-		exit(EXIT_FAILURE);
-	}
-	else if (pid == 0)
-	{
-		// Child process: handle vector
-		std::cout << BLUE << "Child process handling vector" << N << std::endl;
-		// start chrono
-		struct timespec start, finish;
-		clock_gettime(CLOCK_MONOTONIC, &start);
-		// run merge
-		mergeVector(begin, end);
-		// stop chrono
-		clock_gettime(CLOCK_MONOTONIC, &finish);
-		// print results
-		showStats(finish, start, VECTOR);
-		std::cout << std::endl;
-	}
-	else
-	{
-		// Parent process: handle deque
-		std::cout << PURPLE << "Parent process handling deque" << N << std::endl;
-		// start chrono
-		struct timespec start, finish;
-		clock_gettime(CLOCK_MONOTONIC, &start);
-		// run merge
-		mergeDeque(begin, end);
-		// stop chrono
-		clock_gettime(CLOCK_MONOTONIC, &finish);
-		// print results
-		showStats(finish, start, DEQUE);
-
-		// Wait for child process to finish
-		int	status;
-		waitpid(pid, &status, 0);
-		if (WIFEXITED(status)) {
-			std::cout << "Child process exited with status " << WEXITSTATUS(status) << std::endl;
-		}
-	}
+	// start chrono
+	struct timespec start, finish;
+	clock_gettime(CLOCK_MONOTONIC, &start);
+	// run merge
+	mergeVector(begin, end);
+	// stop chrono
+	clock_gettime(CLOCK_MONOTONIC, &finish);
+	// print results
+	showStats(finish, start, VECTOR);
+	std::cout << std::endl;
+	// start chrono
+	clock_gettime(CLOCK_MONOTONIC, &start);
+	// run merge
+	mergeDeque(begin, end);
+	// stop chrono
+	clock_gettime(CLOCK_MONOTONIC, &finish);
+	// print results
+	showStats(finish, start, DEQUE);
 }
 
 void PmergeMe::showStats(timespec &finish, timespec &start, const std::string &containerType) const
@@ -79,11 +54,14 @@ void PmergeMe::mergeVector(const char **begin, const char **end)
 {
 	//Initialize vector
 	if (_firstRun) {
+		std::cout << GREY << "First run, initializing vector" << N << std::endl;
+	} else {
+		std::cout << GREY << "Subsequent run, merging vector" << N << std::endl;
+	}
+	if (_firstRun) {
 		_firstRun = false;
 		for (const char **it = begin; it != end; ++it)
-		{
 			_vector.push_back(std::atoi(*it));
-		}
 	}
 	// fordjohnson
 }
@@ -91,9 +69,15 @@ void PmergeMe::mergeVector(const char **begin, const char **end)
 void PmergeMe::mergeDeque(const char **begin, const char **end)
 {
 	//Initialize deque
-	for (const char **it = begin; it != end; ++it)
-	{
-		_deque.push_back(std::atoi(*it));
+	if (_firstRun) {
+		std::cout << GREY << "First run, initializing deque" << N << std::endl;
+	} else {
+		std::cout << GREY << "Subsequent run, merging deque" << N << std::endl;
+	}
+	if (_firstRun) {
+		_firstRun = false;
+		for (const char **it = begin; it != end; ++it)
+			_deque.push_back(std::atoi(*it));
 	}
 	// fordjohnson
 }
