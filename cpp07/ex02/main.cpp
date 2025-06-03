@@ -10,19 +10,6 @@
 #define YELLOW "\033[33m"
 #define RESET "\033[0m"
 
-
-// to test :
-// 1. Default constructor
-// 2. Parameterized constructor
-// 3. Copy constructor
-// 4. operator
-//    4.1 operator=
-//    4.2 operator[]
-// 5. Exception handling for out-of-bounds access
-// 6. Const access
-// 7. Deep copy (modifying the original should not affect the copy)
-// 8. Destructor
-// 9. Size method
 int main() {
 	std::cout << CYAN << "== Test: Array default constructor ==" << RESET << std::endl;
 	Array<int> arrInt;
