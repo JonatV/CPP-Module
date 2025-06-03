@@ -17,7 +17,9 @@ class Array
 		~Array();
 		Array			&operator=(const Array &);
 		T				&operator[](unsigned int);
+		const T			&operator[](unsigned int) const;
 		unsigned int	size() const;
+		void			print(std::string name) const;
 
 		class			wrongIndex : public std::exception
 		{
@@ -58,6 +60,54 @@ Array<T>::~Array()
 	delete [] _array;
 }
 
+// Assignment operator
+template <typename T>
+T &Array<T>::operator[](unsigned int index)
+{
+	if (index >= _size)
+		throw wrongIndex();
+	return _array[index];
+}
+
+template <typename T>
+const T &Array<T>::operator[](unsigned int index) const
+{
+	if (index >= _size)
+		throw wrongIndex();
+	return _array[index];
+}
+
+template <typename T>
+Array<T> &Array<T>::operator=(const Array &other)
+{
+	std::cout << "\e[2mAssignation operator Array called\e[0m" << std::endl;
+	if (this != &other)
+	{
+		delete [] _array;
+		_size = other._size;
+		_array = new T[_size];
+		for (unsigned int i = 0; i < _size; i++)
+			_array[i] = other._array[i];
+	}
+	return *this;
+}
+
+// methods
+template <typename T>
+unsigned int Array<T>::size() const
+{
+	return _size;
+}
+
+template <typename T>
+void Array<T>::print(std::string name) const
+{
+	for (unsigned int i = 0; i < _size; i++)
+		std::cout << name << ":\t" << _array[i] << std::endl;
+	std::cout << std::endl;
+}
+
+// exception
 template< typename T >
 const char	*Array<T>::wrongIndex::what() const throw()
 {
