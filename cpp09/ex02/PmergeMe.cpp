@@ -1,13 +1,6 @@
 #include "PmergeMe.hpp"
 
 PmergeMe::PmergeMe(const char **begin, const char **end) {
-	// Start by checking if the input is valid
-	// only integers are allowed
-	// no negative numbers
-	// no duplicates
-	// no empty input
-	// no non-numeric characters
-	// check for "1 2 3" and check for 1 2 3 -> one is a string with all numbers, the other is a list of argv
 	try {
 		checkValidInput(begin, end);
 	}
@@ -20,21 +13,18 @@ PmergeMe::PmergeMe(const char **begin, const char **end) {
 		exit(EXIT_FAILURE);
 	}
 	// VECTOR
+	struct timespec startVec, finishVec;
 	// start chrono
-	struct timespec start, finish;
-	clock_gettime(CLOCK_MONOTONIC, &start);
+	clock_gettime(CLOCK_MONOTONIC, &startVec);
 	// init vector
 	initVector();
 	// run merge
 	mergeVector(_vector);
 	// stop chrono
-	clock_gettime(CLOCK_MONOTONIC, &finish);
-	// print results
-	showStats(finish, start, VECTOR);
-	std::cout << std::endl;
+	clock_gettime(CLOCK_MONOTONIC, &finishVec);
 
-	struct timespec startDeque, finishDeque;
 	// DEQUE
+	struct timespec startDeque, finishDeque;
 	// start chrono
 	clock_gettime(CLOCK_MONOTONIC, &startDeque);
 	// init deque
@@ -43,31 +33,42 @@ PmergeMe::PmergeMe(const char **begin, const char **end) {
 	mergeDeque(_deque);
 	// stop chrono
 	clock_gettime(CLOCK_MONOTONIC, &finishDeque);
+
 	// print results
-	showStats(finishDeque, startDeque, DEQUE);
+	showStats(finishDeque, startDeque, finishVec, startVec);
 }
 
-void PmergeMe::showStats(timespec &finish, timespec &start, const std::string &containerType) const
+void PmergeMe::showStats(timespec &finishDeque, timespec &startDeque, timespec &finishVec, timespec &startVec) const
 {
-	long seconds = finish.tv_sec - start.tv_sec;
-	long nanoseconds = finish.tv_nsec - start.tv_nsec;
-	double microseconds = seconds * 1e6 + nanoseconds / 1e3;
+	long secondsDeque = finishDeque.tv_sec - startDeque.tv_sec;
+	long nanosecondsDeque = finishDeque.tv_nsec - startDeque.tv_nsec;
+	double microsecondsDeque = secondsDeque * 1e6 + nanosecondsDeque / 1e3;
 
+	long secondsVec = finishVec.tv_sec - startVec.tv_sec;
+	long nanosecondsVec = finishVec.tv_nsec - startVec.tv_nsec;
+	double microsecondsVec = secondsVec * 1e6 + nanosecondsVec / 1e3;
+
+	std::cout << PURPLE << "Before: ";
+	for (std::vector<int>::const_iterator it = _arguments.begin(); it != _arguments.end(); ++it) {
+		std::cout << *it << " ";
+	}
+	std::cout << N << std::endl;
+	std::cout << PURPLE << "After: ";
+	for (std::vector<int>::const_iterator it = _vector.begin(); it != _vector.end(); ++it) {
+		std::cout << *it << " ";
+	}
+	std::cout << N << std::endl;
 	std::cout << std::fixed;
-	std::cout.precision(5); // 5 digits after the decimal point
-	std::cout << "Time taken for " << containerType << " merge: " << microseconds << " us" << std::endl;
-	if (containerType == VECTOR) {
-		std::cout << "Sorted vector: ";
-		for (std::vector<int>::const_iterator it = _vector.begin(); it != _vector.end(); ++it) {
-			std::cout << *it << " ";
-		}
-		std::cout << std::endl;
-	} else if (containerType == DEQUE) {
-		std::cout << "Sorted deque: ";
-		for (std::deque<int>::const_iterator it = _deque.begin(); it != _deque.end(); ++it) {
-			std::cout << *it << " ";
-		}
-		std::cout << std::endl;
+	std::cout.precision(5);
+	std::cout << BLUE << "Time to process a range of " << _arguments.size() << " elements with " << YELLOW << "std::vector:\t" << BLUE << microsecondsVec << " us" << N << std::endl;
+	std::cout << BLUE << "Time to process a range of " << _arguments.size() << " elements with " << YELLOW << "std::deque:\t" << BLUE << microsecondsDeque << " us" << N << std::endl;
+	if (!checkSorting(_vector.begin(), _vector.end())) {
+		std::cerr << RED << "Error: vector is not sorted" << N << std::endl;
+		exit(EXIT_FAILURE);
+	}
+	if (!checkSorting(_deque.begin(), _deque.end())) {
+		std::cerr << RED << "Error: deque is not sorted" << N << std::endl;
+		exit(EXIT_FAILURE);
 	}
 }
 
@@ -79,18 +80,9 @@ void PmergeMe::initVector()
 
 void PmergeMe::mergeVector(std::vector<int> &vec)
 {
-	// fordjohnson (merge insert)
-	//todo check for <= 1 element in vector
-	if (vec.size() <= 1) {
-		std::cout << "Vector is already sorted or has only one element." << std::endl;
+	if (vec.size() <= 1)
 		return;
-	}
-	// print vector
-	std::cout << "Merging vector: ";
-	for (std::vector<int>::const_iterator it = vec.begin(); it != vec.end(); ++it) {
-		std::cout << *it << " ";
-	}
-	std::cout << std::endl;
+
 	std::vector<int> small;
 	std::vector<int> large;
 	std::vector<int>::iterator it = vec.begin();
@@ -110,16 +102,6 @@ void PmergeMe::mergeVector(std::vector<int> &vec)
 			large.push_back(first);
 		}
 	}
-	std::cout << BLUE << "Small vector: ";
-	for (std::vector<int>::const_iterator it = small.begin(); it != small.end(); ++it) {
-		std::cout << *it << " ";
-	}
-	std::cout << N << std::endl;
-	std::cout << PURPLE << "Large vector: ";
-	for (std::vector<int>::const_iterator it = large.begin(); it != large.end(); ++it) {
-		std::cout << *it << " ";
-	}
-	std::cout << N << std::endl;
 	mergeVector(large);
 	std::vector<int> merged = large;
 	std::vector<int>::iterator smallIt = small.begin();
@@ -128,11 +110,6 @@ void PmergeMe::mergeVector(std::vector<int> &vec)
 		merged.insert(pos, *smallIt);
 		++smallIt;
 	}
-	std::cout << "Merged vector: ";
-	for (std::vector<int>::const_iterator it = merged.begin(); it != merged.end(); ++it) {
-		std::cout << *it << " ";
-	}
-	std::cout << std::endl;
 	vec = merged;
 }
 
@@ -144,8 +121,37 @@ void PmergeMe::initDeque()
 
 void PmergeMe::mergeDeque(std::deque<int> &deq)
 {
-	// fordjohnson
-	(void)deq;
+	if (deq.size() <= 1)
+		return;
+
+	std::deque<int> small;
+	std::deque<int> large;
+	std::deque<int>::iterator it = deq.begin();
+	while (it != deq.end()) {
+		int	first = *it++;
+		if (it == deq.end()) {
+			small.push_back(first);
+			break;
+		}
+		int	second = *it++;
+
+		if (first < second) {
+			small.push_back(first);
+			large.push_back(second);
+		} else {
+			small.push_back(second);
+			large.push_back(first);
+		}
+	}
+	mergeDeque(large);
+	std::deque<int> merged = large;
+	std::deque<int>::iterator smallIt = small.begin();
+	while(smallIt != small.end()) {
+		std::deque<int>::iterator pos = std::lower_bound(merged.begin(), merged.end(), *smallIt);
+		merged.insert(pos, *smallIt);
+		++smallIt;
+	}
+	deq = merged;
 }
 
 PmergeMe::~PmergeMe() {
@@ -164,12 +170,11 @@ void PmergeMe::checkValidInput(const char **begin, const char **end) {
 			throw std::invalid_argument("Empty input found");
 		}
 		while (iss >> token) {
-			std::cout << "Checking token: " << token << std::endl;
 			if (token[0] == '-') {
 				throw std::invalid_argument("Negative numbers are not allowed: " + token);
 			}
 			if (token[0] == '+' && token.length() > 1) {
-				token.erase(0, 1); // Remove leading '+'
+				token.erase(0, 1);
 			} else if (token[0] == '+') {
 				throw std::invalid_argument("Invalid input: " + token);
 			}
@@ -178,7 +183,14 @@ void PmergeMe::checkValidInput(const char **begin, const char **end) {
 					throw std::invalid_argument("Non-numeric character found: " + token);
 				}
 			}
-			int num = std::atoi(token.c_str());
+			if (token.length() > 10) {
+				throw std::invalid_argument("Number too large for an int: " + token);
+			}
+			long long num_ll = std::atoll(token.c_str());
+			if (num_ll > INT_MAX) {
+				throw std::invalid_argument("Number too large for an int: " + token);
+			}
+			int num = static_cast<int>(num_ll);
 			if (std::find(_arguments.begin(), _arguments.end(), num) != _arguments.end()) {
 				throw std::invalid_argument("Duplicate number found: " + to_string(num));
 			}
@@ -188,14 +200,24 @@ void PmergeMe::checkValidInput(const char **begin, const char **end) {
 	if (_arguments.empty()) {
 		throw std::invalid_argument("No valid integers found in input");
 	}
-	// print the arguments //dev
-	std::cout << "Valid input: ";
-	for (std::vector<int>::const_iterator it = _arguments.begin(); it != _arguments.end(); ++it) {
-		std::cout << *it << " ";
-	}
-	std::cout << std::endl;
 }
 
+// assignment operator
+PmergeMe &PmergeMe::operator=(const PmergeMe &other) {
+	if (this != &other) {
+		std::cout << GREY << "Assignment operator called" << N << std::endl;
+		_vector = other._vector;
+		_arguments = other._arguments;
+		_deque = other._deque;
+	}
+	return *this;
+}
+
+// copy constructor
+PmergeMe::PmergeMe(const PmergeMe &other) {
+	std::cout << GREY << "Copy constructor called" << N << std::endl;
+	*this = other;  // use assignment operator
+}
 
 // helper function
 std::string PmergeMe::to_string(int value) {
