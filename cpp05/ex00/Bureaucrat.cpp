@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 16:57:57 by jveirman          #+#    #+#             */
-/*   Updated: 2025/02/24 13:17:09 by jveirman         ###   ########.fr       */
+/*   Updated: 2025/07/22 16:08:25 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ Bureaucrat::Bureaucrat(std::string const &name, int grade) : _name(name)
 {
 	std::cout << "\e[2mParameterized constructor Bureaucrat called\e[0m" << std::endl;
 
-	if (grade < _maxGrade) // if 0 < 1 we are above the system
+	if (grade < _maxGrade)
 		throw Bureaucrat::GradeTooHighException();
-	else if (grade > _minGrade) // if 666 > 150 we are too low
+	else if (grade > _minGrade)
 		throw Bureaucrat::GradeTooLowException();
 	else
 		this->_grade = grade;
@@ -80,13 +80,6 @@ const std::string &Bureaucrat::getName() const
 int Bureaucrat::getGrade() const
 {
 	return (this->_grade);
-}
-
-// Setters
-
-void Bureaucrat::setGrade(int grade)
-{
-	this->_grade = grade;
 }
 
 // overload <<

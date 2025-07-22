@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 16:58:01 by jveirman          #+#    #+#             */
-/*   Updated: 2025/02/24 13:17:48 by jveirman         ###   ########.fr       */
+/*   Updated: 2025/07/22 14:50:52 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,6 @@ class Bureaucrat
 		const std::string	&getName() const;
 		int					getGrade() const;
 
-	// Setters
-		void	setGrade(int);
 	// exceptions
 		class GradeTooHighException : public std::exception
 		{

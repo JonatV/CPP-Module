@@ -6,12 +6,12 @@
 #    By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/19 16:57:59 by jveirman          #+#    #+#              #
-#    Updated: 2025/03/19 15:37:24 by jveirman         ###   ########.fr        #
+#    Updated: 2025/07/22 14:31:16 by jveirman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS = main.cpp Bureaucrat.cpp
-NAME = love_bureaucrat
+NAME = exec_bureaucrat
 CC = c++
 CFLAGS = -Wall -Wextra -Werror
 STD = -std=c++98
