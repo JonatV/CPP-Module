@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 16:59:22 by jveirman          #+#    #+#             */
-/*   Updated: 2024/12/19 16:59:22 by jveirman         ###   ########.fr       */
+/*   Updated: 2025/07/22 18:18:01 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 class Bureaucrat;
 
-class Form
+class AForm
 {
 	private:
 		static const int	_maxGrade = 1;
@@ -31,18 +31,18 @@ class Form
 		virtual void		executeAction() const = 0;
 	public:
 	// Constructor
-		Form();
+		AForm();
 
 	// Parameterized constructor
-		Form(std::string const &name, int executionGrade, int signedGrade);
+		AForm(std::string const &name, int executionGrade, int signedGrade);
 	// Copy constructor
-		Form(Form const &);
+		AForm(AForm const &);
 		
 	// Destructor
-		virtual ~Form();
+		virtual ~AForm();
 		
 	// Overloads
-		Form	&operator=(Form const &);
+		AForm	&operator=(AForm const &);
 		
 	// Member functions
 		void	beSigned(const Bureaucrat &);
@@ -82,9 +82,8 @@ class Form
 			public:
 				const char *what() const throw();
 		};
-	// friends
-		friend std::ostream	&operator<<(std::ostream &os, const Form &form);
-	
-};
-
+		
+	};
+// non-member function
+std::ostream	&operator<<(std::ostream &os, const AForm &form);
 #endif

@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 16:59:11 by jveirman          #+#    #+#             */
-/*   Updated: 2024/12/19 16:59:12 by jveirman         ###   ########.fr       */
+/*   Updated: 2025/07/22 18:28:04 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,21 +18,21 @@
 
 // Constructor
 ShrubberyCreationForm::ShrubberyCreationForm()
-	: Form("ShrubberyCreation", _executionGrade, _signedGrade) , _target("Unknown")
+	: AForm("ShrubberyCreation", _executionGrade, _signedGrade) , _target("Unknown")
 {
 	std::cout << "\e[2mDefault constructor ShrubberyCreationForm called\e[0m" << std::endl;
 }
 
 // Parameterized constructor
 ShrubberyCreationForm::ShrubberyCreationForm(std::string target)
-	: Form("ShrubberyCreation", _executionGrade, _signedGrade), _target(target)
+	: AForm("ShrubberyCreation", _executionGrade, _signedGrade), _target(target)
 {
 	std::cout << "\e[2mParameterized constructor ShrubberyCreationForm called\e[0m" << std::endl;
 }
 
 // Copy constructor
 ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm &other)
-	: Form("ShrubberyCreation", _executionGrade, _signedGrade), _target(other._target + "_copy")
+	: AForm("ShrubberyCreation", _executionGrade, _signedGrade), _target(other._target + "_copy")
 {
 	std::cout << "\e[2mCopy constructor ShrubberyCreationForm called\e[0m" << std::endl;
 }
@@ -49,7 +49,7 @@ ShrubberyCreationForm	&ShrubberyCreationForm::operator=(const ShrubberyCreationF
 	std::cout << "\e[2mAssignation operator ShrubberyCreationForm called\e[0m" << std::endl;
 	if (this != &other)
 	{
-		Form::operator=(other); // to copy the base class as well
+		AForm::operator=(other); // to copy the base class as well
 	}
 	return (*this);
 }
@@ -67,7 +67,7 @@ void	ShrubberyCreationForm::executeAction() const
 				std::getline(std::cin, answer);
 		}
 		if (answer == "n")
-			throw Form::NotExecutedException();
+			throw AForm::NotExecutedException();
 	}
 	std::ofstream f(modified_file_name.c_str());
 	if (f.is_open())
@@ -107,5 +107,3 @@ std::string	ShrubberyCreationForm::getTarget() const
 {
 	return (this->_target);
 }
-
-// Setters

@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 16:59:12 by jveirman          #+#    #+#             */
-/*   Updated: 2024/12/19 16:59:13 by jveirman         ###   ########.fr       */
+/*   Updated: 2025/07/22 18:26:29 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include "AForm.hpp"
 #include <string>
 
-class RobotomyRequestForm : public Form
+class RobotomyRequestForm : public AForm
 {
 	private:
 		static const int	_executionGrade = 45;
@@ -43,8 +43,6 @@ class RobotomyRequestForm : public Form
 	// Member functions
 	// Getters
 		std::string	getTarget() const;
-	// Setters
-		
 };
 
 #endif

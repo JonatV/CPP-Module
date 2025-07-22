@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 16:59:18 by jveirman          #+#    #+#             */
-/*   Updated: 2024/12/19 16:59:18 by jveirman         ###   ########.fr       */
+/*   Updated: 2025/07/22 18:29:08 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #define INTERN_HPP
 
 #include <string>
-class Form;
+class AForm;
 
 class Intern
 {
@@ -36,7 +36,7 @@ class Intern
 		Intern	&operator=(const Intern &);
 		
 	// Member functions
-		Form *makeForm(std::string form_type, std::string target);
+		AForm *makeForm(std::string form_type, std::string target);
 	// Getters
 		
 	// Setters

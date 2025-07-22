@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 16:59:18 by jveirman          #+#    #+#             */
-/*   Updated: 2024/12/19 16:59:19 by jveirman         ###   ########.fr       */
+/*   Updated: 2025/07/22 18:29:12 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ Intern	&Intern::operator=(const Intern &)
 
 // Member functions
 
-Form *Intern::makeForm(std::string form_type, std::string target)
+AForm *Intern::makeForm(std::string form_type, std::string target)
 {
 	std::string	all_forms[4] = {"shrubbery creation", "robotomy request", "presidential pardon", ""};
 	int	i;
@@ -65,7 +65,7 @@ Form *Intern::makeForm(std::string form_type, std::string target)
 			std::cout << "[Intern] creates " << all_forms[i] << std::endl;
 			return (new PresidentialPardonForm(target)); 
 		default:
-			throw Form::FormTypeUnknownException();
+			throw AForm::FormTypeUnknownException();
 	}
 }
 // Getters
