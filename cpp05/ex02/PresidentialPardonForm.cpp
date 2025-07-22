@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 16:58:49 by jveirman          #+#    #+#             */
-/*   Updated: 2024/12/19 16:58:50 by jveirman         ###   ########.fr       */
+/*   Updated: 2025/07/22 17:56:12 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,21 @@
 
 // Constructor
 PresidentialPardonForm::PresidentialPardonForm()
-	: Form("PresidentialPardon", _executionGrade, _signedGrade) , _target("Unknown")
+	: AForm("PresidentialPardon", _executionGrade, _signedGrade) , _target("Unknown")
 {
 	std::cout << "\e[2mDefault constructor PresidentialPardonForm called\e[0m" << std::endl;
 }
 
 // Parameterized constructor
 PresidentialPardonForm::PresidentialPardonForm(std::string target)
-	: Form("PresidentialPardon", _executionGrade, _signedGrade), _target(target)
+	: AForm("PresidentialPardon", _executionGrade, _signedGrade), _target(target)
 {
 	std::cout << "\e[2mParameterized constructor PresidentialPardonForm called\e[0m" << std::endl;
 }
 
 // Copy constructor
 PresidentialPardonForm::PresidentialPardonForm(const PresidentialPardonForm &other)
-	: Form("PresidentialPardon", _executionGrade, _signedGrade), _target(other._target + "_copy")
+	: AForm("PresidentialPardon", _executionGrade, _signedGrade), _target(other._target + "_copy")
 {
 	std::cout << "\e[2mCopy constructor PresidentialPardonForm called\e[0m" << std::endl;
 }
@@ -47,7 +47,7 @@ PresidentialPardonForm	&PresidentialPardonForm::operator=(const PresidentialPard
 	std::cout << "\e[2mAssignation operator PresidentialPardonForm called\e[0m" << std::endl;
 	if (this != &other)
 	{
-		Form::operator=(other); // to copy the base class as well
+		AForm::operator=(other); // to copy the base class as well
 	}
 	return (*this);
 }
@@ -55,7 +55,7 @@ PresidentialPardonForm	&PresidentialPardonForm::operator=(const PresidentialPard
 // Member functions
 void	PresidentialPardonForm::executeAction() const
 {
-	std::cout << GREEN "Lucky day! " << this->getTarget() << " has been pardoned by Zaphod Beeblebrox" << std::endl;
+	std::cout << GREEN "Lucky day! " << this->getTarget() << " has been pardoned by Zaphod Beeblebrox" << RESET << std::endl;
 }
 
 // Getters

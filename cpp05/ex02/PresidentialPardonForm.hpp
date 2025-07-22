@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 16:58:37 by jveirman          #+#    #+#             */
-/*   Updated: 2024/12/19 16:58:37 by jveirman         ###   ########.fr       */
+/*   Updated: 2025/07/22 17:28:43 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include "AForm.hpp"
 #include <string>
 
-class PresidentialPardonForm : public Form
+class PresidentialPardonForm : public AForm
 {
 	private:
 		static const int	_executionGrade = 5;

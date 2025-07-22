@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 16:58:42 by jveirman          #+#    #+#             */
-/*   Updated: 2024/12/19 16:58:43 by jveirman         ###   ########.fr       */
+/*   Updated: 2025/07/22 17:59:05 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,91 +20,86 @@
 #include <string>
 #include <math.h>
 
-int	main(int argc, char *argv[])
+int	main()
 {
-	(void)argc;
-	(void)argv;
-	try {
-		Bureaucrat a;  // Calls default constructor
-		Bureaucrat b("Alice", 1);  // Calls parameterized constructor
-
-		std::cout << a;
-		std::cout << b;
-	} catch (const Bureaucrat::GradeTooHighException &myException) {
-		std::cerr << "Exception: " << myException.what() << std::endl;
-	} catch (const Bureaucrat::GradeTooLowException &myException) {
-		std::cerr << "Exception: " << myException.what() << std::endl;
-	}
-	std::cout << std::endl << "------------------------------------------------\n" << std::endl;
-
-	Bureaucrat c("Ventouse", 10);  // Calls parameterized constructor
-	ShrubberyCreationForm shrubbery("home");
+	Bureaucrat employee("Ventouse", 10);  // Calls parameterized constructor
+	std::cout << employee << std::endl;
+	
+	ShrubberyCreationForm shrubbery("Rigby_Garden");
 	std::cout << shrubbery;
 	try
 	{
-		shrubbery.beSigned(c);
-		shrubbery.execute(c);
+		shrubbery.beSigned(employee);
+		shrubbery.execute(employee);
 	} catch (const Bureaucrat::GradeTooHighException &myException) {
 		std::cerr << "Exception Bureaucrat: " << myException.what() << std::endl;
 	} catch (const Bureaucrat::GradeTooLowException &myException) {
 		std::cerr << "Exception Bureaucrat: " << myException.what() << std::endl;
-	} catch (const Form::GradeTooHighException &myException){
+	} catch (const AForm::GradeTooHighException &myException){
 		std::cerr << "Exception Form: " << myException.what() << std::endl;
-	} catch (const Form::GradeTooLowException &myException){
+	} catch (const AForm::GradeTooLowException &myException){
 		std::cerr << "Exception Form: " << myException.what() << std::endl;
-	} catch (const Form::NotExecutedException &myException){
+	} catch (const AForm::NotExecutedException &myException){
 		std::cerr << "Exception Form: " << myException.what() << std::endl;
-	} catch (const Form::FormNotSignedException &myException){
+	} catch (const AForm::FormNotSignedException &myException){
 		std::cerr << "Exception Form: " << myException.what() << std::endl;
+	} catch (std::exception & e) {
+		std::cerr << "Exception Global: " << e.what() << std::endl;
 	}
 
 	std::cout << std::endl << "------------------------------------------------\n" << std::endl;
-	srand(time(0)); // Seed random number generator
 
 	RobotomyRequestForm robot("Donald");
 	std::cout << robot;
 	try
 	{
-		// robot.beSigned(c);// todo error when not signed
-		robot.execute(c);
+		robot.beSigned(employee);// todo error when not signed
+		robot.execute(employee);
 	} catch (const Bureaucrat::GradeTooHighException &myException) {
 		std::cerr << "Exception Bureaucrat: " << myException.what() << std::endl;
 	} catch (const Bureaucrat::GradeTooLowException &myException) {
 		std::cerr << "Exception Bureaucrat: " << myException.what() << std::endl;
-	} catch (const Form::GradeTooHighException &myException){
+	} catch (const AForm::GradeTooHighException &myException){
 		std::cerr << "Exception Form: " << myException.what() << std::endl;
-	} catch (const Form::GradeTooLowException &myException){
+	} catch (const AForm::GradeTooLowException &myException){
 		std::cerr << "Exception Form: " << myException.what() << std::endl;
-	} catch (const Form::FormNotSignedException &myException){
+	} catch (const AForm::FormNotSignedException &myException){
 		std::cerr << "Exception Form: " << myException.what() << std::endl;
-	} catch (const Form::NotExecutedException &myException){
+	} catch (const AForm::NotExecutedException &myException){
 		std::cerr << "Exception Form: " << myException.what() << std::endl;
+	} catch (std::exception & e) {
+		std::cerr << "Exception Global: " << e.what() << std::endl;
 	}
 
 	std::cout << std::endl << "------------------------------------------------\n" << std::endl;
 
 	PresidentialPardonForm president("Tanguy");
 	std::cout << president;
-	std::cout << c;
+	std::cout << employee;
 	try
 	{
-		c.incrementGrade(7);
-		std::cout << c;
-		president.beSigned(c);
-		president.execute(c);
-		c.executeForm(president);
+		employee.incrementGrade();
+		employee.incrementGrade();
+		employee.incrementGrade();
+		employee.incrementGrade();
+		employee.incrementGrade();
+		president.beSigned(employee);
+		president.execute(employee);
+		employee.executeForm(president);
 	} catch (const Bureaucrat::GradeTooHighException &myException) {
 		std::cerr << "Exception Bureaucrat: " << myException.what() << std::endl;
 	} catch (const Bureaucrat::GradeTooLowException &myException) {
 		std::cerr << "Exception Bureaucrat: " << myException.what() << std::endl;
-	} catch (const Form::GradeTooHighException &myException){
+	} catch (const AForm::GradeTooHighException &myException){
 		std::cerr << "Exception Form: " << myException.what() << std::endl;
-	} catch (const Form::GradeTooLowException &myException){
+	} catch (const AForm::GradeTooLowException &myException){
 		std::cerr << "Exception Form: " << myException.what() << std::endl;
-	} catch (const Form::FormNotSignedException &myException){
+	} catch (const AForm::FormNotSignedException &myException){
 		std::cerr << "Exception Form: " << myException.what() << std::endl;
-	} catch (const Form::NotExecutedException &myException){
+	} catch (const AForm::NotExecutedException &myException){
 		std::cerr << "Exception Form: " << myException.what() << std::endl;
+	} catch (std::exception & e) {
+		std::cerr << "Exception Global: " << e.what() << std::endl;
 	}
 
 	return 0;

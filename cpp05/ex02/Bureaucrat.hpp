@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 16:58:43 by jveirman          #+#    #+#             */
-/*   Updated: 2024/12/19 16:58:44 by jveirman         ###   ########.fr       */
+/*   Updated: 2025/07/22 17:26:09 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 #define CYAN			"\033[1;36m" // grade
 #define WHITE			"\033[1;37m"
 
-class Form;
+class AForm;
 
 class Bureaucrat
 {
@@ -54,18 +54,13 @@ class Bureaucrat
 		
 	// Member functions
 		void	incrementGrade();
-		void	incrementGrade(int);
 		void	decrementGrade();
-		void	decrementGrade(int);
-		void	executeForm(Form const & form) const;
-		void	signForm(Form & form) const;
+		void	executeForm(AForm const & form) const;
+		void	signForm(AForm & form) const;
 
 	// Getters
 		const std::string	&getName() const;
 		int					getGrade() const;
-
-	// Setters
-		void	setGrade(int);
 
 	// exceptions
 		class GradeTooHighException : public std::exception
@@ -79,8 +74,7 @@ class Bureaucrat
 				const char *what() const throw();
 		};
 
-	//friends
-		friend std::ostream	&operator<<(std::ostream &os, const Bureaucrat &bureaucrat);
 };
+std::ostream	&operator<<(std::ostream &os, const Bureaucrat &bureaucrat);
 
 #endif
