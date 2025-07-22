@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 16:58:21 by jveirman          #+#    #+#             */
-/*   Updated: 2024/12/19 16:58:21 by jveirman         ###   ########.fr       */
+/*   Updated: 2025/07/22 16:38:37 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,16 +51,11 @@ class Bureaucrat
 		
 	// Member functions
 		void	incrementGrade();
-		void	incrementGrade(int);
 		void	decrementGrade();
-		void	decrementGrade(int);
 
 	// Getters
 		const std::string	&getName() const;
 		int					getGrade() const;
-
-	// Setters
-		void	setGrade(int);
 
 	// exceptions
 		class GradeTooHighException : public std::exception
@@ -73,9 +68,9 @@ class Bureaucrat
 			public:
 				const char *what() const throw();
 		};
+	};
 
-	//friends
-		friend std::ostream	&operator<<(std::ostream &os, const Bureaucrat &bureaucrat);
-};
+// non-member overload <<
+std::ostream	&operator<<(std::ostream &os, const Bureaucrat &bureaucrat);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 16:58:20 by jveirman          #+#    #+#             */
-/*   Updated: 2024/12/19 16:58:20 by jveirman         ###   ########.fr       */
+/*   Updated: 2025/07/22 16:45:58 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ Form &Form::operator=(const Form &other)
 // Overload <<
 std::ostream	&operator<<(std::ostream &os, const Form &form)
 {
-	os << "Form title \"" MAGENTA << form.getName() << RESET "\"";
+	os << "\"" MAGENTA << form.getName() << RESET "\"";
 	os << " | ";
 	os << (form.getIsSigned() ? GREEN "signed" : RED "not signed") << RESET;
 	os << " | ";
@@ -83,7 +83,7 @@ void	Form::beSigned(const Bureaucrat &employee)
 	{
 		std::cout << "[" << employee.getName() << "] couldn't sign ";
 		std::cout << "\"" MAGENTA << this->getName() << RESET "\"" << " because: ";
-		std::cout << YELLOW << "Form already signed" << RESET << std::endl;
+		std::cout << YELLOW << "Form's already signed" << RESET << std::endl;
 	}
 	else
 	{
@@ -143,10 +143,10 @@ void	Form::setIsSigned(bool isSigned)
 // exceptions
 const char *Form::GradeTooHighException::what() const throw()
 {
-	return RED "Grade is too high for a Form" RESET;
+	return RED "Grade is too high" RESET;
 }
 
 const char *Form::GradeTooLowException::what() const throw()
 {
-	return RED "Grade is too low for a Form" RESET;
+	return RED "Grade is too low" RESET;
 }

@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 16:58:19 by jveirman          #+#    #+#             */
-/*   Updated: 2024/12/19 16:58:19 by jveirman         ###   ########.fr       */
+/*   Updated: 2025/07/22 16:38:20 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,10 @@ class Form
 			public:
 				const char *what() const throw();
 		};
-	// friends
-		friend std::ostream	&operator<<(std::ostream &os, const Form &form);
 	
 };
+
+// non-member overload <<
+std::ostream	&operator<<(std::ostream &os, const Form &form);
 
 #endif

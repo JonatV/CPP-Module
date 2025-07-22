@@ -6,7 +6,7 @@
 /*   By: jveirman <jveirman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 16:58:16 by jveirman          #+#    #+#             */
-/*   Updated: 2024/12/19 16:58:16 by jveirman         ###   ########.fr       */
+/*   Updated: 2025/07/22 16:35:07 by jveirman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,14 +63,6 @@ void	Bureaucrat::incrementGrade()
 		_grade--;
 }
 
-void	Bureaucrat::incrementGrade(int gainedGrade)
-{
-	if (_grade - gainedGrade < _maxGrade)
-		throw Bureaucrat::GradeTooHighException();
-	else
-		_grade -= gainedGrade;
-}
-
 void Bureaucrat::decrementGrade()
 {
 	if (_grade + 1 > _minGrade)
@@ -79,13 +71,6 @@ void Bureaucrat::decrementGrade()
 		_grade++;
 }
 
-void Bureaucrat::decrementGrade(int reducedGrade)
-{
-	if (_grade + reducedGrade > _minGrade)
-		throw Bureaucrat::GradeTooLowException();
-	else
-		_grade += reducedGrade;
-}
 // Getters
 const std::string &Bureaucrat::getName() const
 {
@@ -97,17 +82,10 @@ int Bureaucrat::getGrade() const
 	return (this->_grade);
 }
 
-// Setters
-
-void Bureaucrat::setGrade(int grade)
-{
-	this->_grade = grade;
-}
-
 // overload <<
 std::ostream	&operator<<(std::ostream &os, const Bureaucrat &bureaucrat)
 {
-	os << "[" << bureaucrat._name << "], bureaucrat grade " CYAN << bureaucrat._grade << RESET;
+	os << "[" << bureaucrat.getName() << "], bureaucrat grade " CYAN << bureaucrat.getGrade() << RESET;
 	os << std::endl;
 	return (os);
 }
