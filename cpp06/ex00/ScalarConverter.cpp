@@ -5,12 +5,11 @@
 #include <cstdlib>
 #include <limits>
 
-// constr / destr
-ScalarConverter::ScalarConverter() {}
-ScalarConverter::~ScalarConverter() {}
+				  /////////////////////
+				 // General Methods //
+				/////////////////////
 
-// helper functions
-bool	ScalarConverter::checkIntOverflow(const std::string &input)
+bool	checkIntOverflow(const std::string &input)
 {
 	if (input.length() > 10)
 		return (true);
@@ -20,15 +19,16 @@ bool	ScalarConverter::checkIntOverflow(const std::string &input)
 	return (false);
 }
 
-std::string ScalarConverter::trim(const std::string &input)
+std::string trim(const std::string &input)
 {
+	if (input.size() == 1 && input[0] == ' ')
+		return (" ");
 	size_t start = input.find_first_not_of(" \t\n\v\f\r");
 	size_t end = input.find_last_not_of(" \t\n\v\f\r");
 	return (input.substr(start, end - start + 1));
 }
 
-// Member functions
-bool	ScalarConverter::isChar(const std::string &input)
+bool	isChar(const std::string &input)
 {
 	if (input.length() != 1)
 		return (false);
@@ -37,7 +37,7 @@ bool	ScalarConverter::isChar(const std::string &input)
 	return (true);
 }
 
-bool	ScalarConverter::isInt(const std::string &input)
+bool	isInt(const std::string &input)
 {
 	int	i;
 
@@ -55,7 +55,7 @@ bool	ScalarConverter::isInt(const std::string &input)
 	return (true);
 }
 
-bool	ScalarConverter::isFloat(const std::string &input)
+bool	isFloat(const std::string &input)
 {
 	int	i;
 
@@ -70,7 +70,7 @@ bool	ScalarConverter::isFloat(const std::string &input)
 		return (false);
 	while (isdigit(input[i]))
 		i++;
-	if (input[i] == 'f')
+	if (input[i] == 'f' || input[i] == 'F')
 	{
 		i++;
 		if (input[i] == '\0')
@@ -79,7 +79,7 @@ bool	ScalarConverter::isFloat(const std::string &input)
 	return (false);
 }
 
-bool ScalarConverter::isDouble(const std::string &input)
+bool isDouble(const std::string &input)
 {
 	int	i;
 
@@ -99,7 +99,7 @@ bool ScalarConverter::isDouble(const std::string &input)
 	return (false);
 }
 
-int		ScalarConverter::findType(const std::string &input)
+int		findType(const std::string &input)
 {
 	if (isChar(input)) return (1);
 	if (isInt(input)) return (4);
@@ -110,36 +110,11 @@ int		ScalarConverter::findType(const std::string &input)
 	return (0);
 }
 
-void	ScalarConverter::convert(const std::string &input)
-{
-	if (input.empty())
-	{
-		std::cout << RED << "Hop hop hop hop! Gimme something..." << RESET << std::endl;
-		std::cout << "Usage: ./scalar_converter " << WHITE << "<I N P U T>" << std::endl;
-		return;
-	}
-	if (input.find_first_not_of(" \t\n\v\f\r") == std::string::npos)
-	{
-		std::cout << RED << "No no no (nice try)" << RESET << std::endl;
-		std::cout << "Usage: ./scalar_converter " << WHITE << "<I N P U T>" << std::endl;
-		return;
-	}
-	std::string trimmed = trim(input);
-	int	type = findType(trimmed);
-	std::cout << WHITE << "Initial type is: ";
-	switch (type)
-	{
-		case 1: std::cout << MAGENTA << "char" << RESET << std::endl; displayChar(trimmed); break;
-		case 2: std::cout << MAGENTA << "float" << RESET << std::endl; displayFloat(trimmed); break;
-		case 3: std::cout << MAGENTA << "double" << RESET << std::endl; displayDouble(trimmed); break;
-		case 4: std::cout << MAGENTA << "int" << RESET << std::endl; displayInteger(trimmed); break;
-		case 5: std::cout << MAGENTA << "float (exception)" << RESET << std::endl; displayFloatDoubleException(trimmed); break;
-		case 6: std::cout << MAGENTA << "double (exception)" << RESET << std::endl; displayFloatDoubleException(trimmed); break;
-		default: std::cout << RED << "Unknown" << RESET << std::endl; break;
-	}
-}
+				  /////////////////////
+				 // DISPLAY METHODS //
+				/////////////////////
 
-void ScalarConverter::displayInteger(const std::string &input)
+void displayInteger(const std::string &input)
 {
 	if (checkIntOverflow(input))
 	{
@@ -160,7 +135,7 @@ void ScalarConverter::displayInteger(const std::string &input)
 	std::cout << WHITE << "double: " << MAGENTA << static_cast<double>(i) << ".0" << RESET << std::endl;
 }
 
-void ScalarConverter::displayChar(const std::string &input)
+void displayChar(const std::string &input)
 {
 	std::cout << WHITE << "char: " << MAGENTA << "'" << input << "'" << RESET << std::endl;
 	std::cout << WHITE << "int: " << MAGENTA << static_cast<int>(input[0]) << RESET << std::endl;
@@ -168,7 +143,7 @@ void ScalarConverter::displayChar(const std::string &input)
 	std::cout << WHITE << "double: " << MAGENTA << static_cast<double>(input[0]) << ".0" << RESET << std::endl;
 }
 
-void ScalarConverter::displayFloat(const std::string &input)
+void displayFloat(const std::string &input)
 {
 	float f = std::strtof(input.c_str(), NULL);
 	std::cout << WHITE << "char: ";
@@ -181,11 +156,11 @@ void ScalarConverter::displayFloat(const std::string &input)
 		std::cout << OVER << std::endl;
 	else
 		std::cout << MAGENTA << static_cast<int>(f) << RESET << std::endl;
-	std::cout << WHITE << "float: " << MAGENTA << f << "f" << RESET << std::endl;
-	std::cout << WHITE << "double: " << MAGENTA << static_cast<double>(f) << RESET << std::endl;
+	std::cout << WHITE << "float: " << MAGENTA << std::fixed << std::setprecision(1) << f << "f" << RESET << std::endl;
+	std::cout << WHITE << "double: " << MAGENTA << std::fixed << std::setprecision(1) << static_cast<double>(f) << RESET << std::endl;
 }
 
-void ScalarConverter::displayDouble(const std::string &input)
+void displayDouble(const std::string &input)
 {
 	double d = std::strtod(input.c_str(), NULL);
 	std::cout << WHITE << "char: ";
@@ -198,12 +173,12 @@ void ScalarConverter::displayDouble(const std::string &input)
 		std::cout << OVER << std::endl;
 	else
 		std::cout << MAGENTA << static_cast<int>(d) << RESET << std::endl;
-	std::cout << WHITE << "float: " << MAGENTA << static_cast<float>(d) << "f" << RESET << std::endl;
-	std::cout << WHITE << "double: " << MAGENTA << d << RESET << std::endl;
+	std::cout << WHITE << "float: " << MAGENTA << std::fixed << std::setprecision(1) << static_cast<float>(d) << "f" << RESET << std::endl;
+	std::cout << WHITE << "double: " << MAGENTA << std::fixed << std::setprecision(1) << d << RESET << std::endl;
 }
 
 
-void ScalarConverter::displayFloatDoubleException(const std::string &input)
+void displayFloatDoubleException(const std::string &input)
 {
 	std::cout << WHITE << "char: " << IMP << std::endl;
 	std::cout << WHITE << "int: " << IMP << std::endl;
@@ -226,4 +201,46 @@ void ScalarConverter::displayFloatDoubleException(const std::string &input)
 	}
 	std::cout << WHITE << "float: " << MAGENTA << floatStr << RESET << std::endl;
 	std::cout << WHITE << "double: " << MAGENTA << doubleStr << RESET << std::endl;
+}
+
+				  /////////////////////
+				 //  CLASS METHODS  //
+				/////////////////////
+
+// constr / destr
+ScalarConverter::ScalarConverter() {}
+ScalarConverter::~ScalarConverter() {}
+
+void	ScalarConverter::convert(const std::string &input)
+{
+	if (input.empty())
+	{
+		std::cout << RED << "Hop hop hop hop! Gimme something..." << RESET << std::endl;
+		std::cout << "Usage: ./scalar_converter " << WHITE << "<I N P U T>" << std::endl;
+		return;
+	}
+	if (input.find_first_not_of(" \t\n\v\f\r") == std::string::npos)
+	{
+		if (input.size() == 1 && input[0] == ' ')
+			std::cout << RED << "SPACE" << std::endl;
+		else
+		{
+			std::cout << RED << "No no no (nice try)" << RESET << std::endl;
+			std::cout << "Usage: ./scalar_converter " << WHITE << "<I N P U T>" << std::endl;
+			return;
+		}
+	}
+	std::string trimmed = trim(input);
+	int	type = findType(trimmed);
+	std::cout << WHITE << "Initial type is: ";
+	switch (type)
+	{
+		case 1: std::cout << MAGENTA << "char" << RESET << std::endl; displayChar(trimmed); break;
+		case 2: std::cout << MAGENTA << "float" << RESET << std::endl; displayFloat(trimmed); break;
+		case 3: std::cout << MAGENTA << "double" << RESET << std::endl; displayDouble(trimmed); break;
+		case 4: std::cout << MAGENTA << "int" << RESET << std::endl; displayInteger(trimmed); break;
+		case 5: std::cout << MAGENTA << "float (exception)" << RESET << std::endl; displayFloatDoubleException(trimmed); break;
+		case 6: std::cout << MAGENTA << "double (exception)" << RESET << std::endl; displayFloatDoubleException(trimmed); break;
+		default: std::cout << RED << "Unknown" << RESET << std::endl; break;
+	}
 }
