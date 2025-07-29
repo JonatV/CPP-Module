@@ -13,7 +13,7 @@
 #ifndef ITER_HPP
 #define ITER_HPP
 
-// poitner to function passed in a function parameter looks like this : void test (*f)(type)
+// pointer to function passed in a function parameter looks like this : void test (*f)(type)
 template <typename Addr, typename Func>
 void iter(Addr *addr, int len, void (*f)(Func)) 
 {
