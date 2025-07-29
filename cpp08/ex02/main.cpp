@@ -82,13 +82,24 @@ int main() {
 	}
 
 	std::cout << "\n=== Testing with Different Data Types ===" << std::endl;
+	MutantStack<char> charStack;
+	charStack.push('C');
+	charStack.push('o');
+	charStack.push('d');
+	charStack.push('e');
+	std::cout << "Char stack:" << std::endl;
+	for (MutantStack<char>::iterator it = charStack.begin(); it != charStack.end(); ++it)
+		std::cout << *it << std::endl;
+
 	MutantStack<std::string> stringStack;
-	stringStack.push("Hello");
-	stringStack.push("World");
-	stringStack.push("MutantStack");
+	stringStack.push("Another");
+	stringStack.push("test");
+	stringStack.push(". ݁₊ ⊹ . ݁˖ . ݁");
 	std::cout << "String stack:" << std::endl;
 	for (MutantStack<std::string>::iterator it = stringStack.begin(); it != stringStack.end(); ++it) {
 		std::cout << *it << std::endl;
 	}
+
+
 	return 0;
 }

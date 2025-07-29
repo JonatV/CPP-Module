@@ -31,17 +31,14 @@ class MutantStack : public std::stack<T> {
 
 template <typename T>
 MutantStack<T>::MutantStack() : std::stack<T>() {
-	std::cout << "\e[0;32mMutantStack default constructor called\e[0m" << std::endl;
 }
 
 template <typename T>
 MutantStack<T>::MutantStack(const MutantStack<T> &copy) : std::stack<T>(copy) {
-	std::cout << "\e[0;32mMutantStack copy constructor called\e[0m" << std::endl;
 }
 
 template <typename T>
 MutantStack<T> &MutantStack<T>::operator=(MutantStack<T> const &src) {
-	std::cout << "\e[0;32mMutantStack copy assignment operator called\e[0m" << std::endl;
 	if (this != &src)
 		std::stack<T>::operator=(src);
 	return *this;
@@ -49,7 +46,6 @@ MutantStack<T> &MutantStack<T>::operator=(MutantStack<T> const &src) {
 
 template <typename T>
 MutantStack<T>::~MutantStack() {
-	std::cout << "\e[0;32mMutantStack destructor called\e[0m" << std::endl;
 }
 
 template <typename T>
