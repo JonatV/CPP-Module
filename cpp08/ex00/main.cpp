@@ -4,7 +4,12 @@
 #include <deque>
 #include <stack>
 
-// all type of containers : https://www.geeksforgeeks.org/containers-cpp-stl/
+// all type of containers : https://en.cppreference.com/w/cpp/container.html
+// Available containers in C++ 98:
+// Sequence containers: vector, deque, list
+// Associative containers: set, map, multiset, multimap
+// Unordered associative containers: Not available in C++98
+// Container adaptors: stack, queue, priority_queue
 
 int main(void)
 {
@@ -42,6 +47,13 @@ int main(void)
 	deq.push_back(5);
 	try {
 		std::deque<int>::iterator it = easyfind(deq, 3);
+		std::cout << "Found in deque: " << *it << std::endl;
+	} catch (const std::exception &e) {
+		std::cerr << "Exception: " << e.what() << std::endl;
+	}
+
+	try {
+		std::deque<int>::iterator it = easyfind(deq, 42);
 		std::cout << "Found in deque: " << *it << std::endl;
 	} catch (const std::exception &e) {
 		std::cerr << "Exception: " << e.what() << std::endl;

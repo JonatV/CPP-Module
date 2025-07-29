@@ -1,21 +1,20 @@
 #include "span.hpp"
 #include <iostream>
 #include <limits.h>
+#include <vector>
+#include <numeric>
+#include <algorithm>
 
 Span::Span(unsigned int n) : _size(n) {
-	std::cout << "Span constructor called" << std::endl;
 }
 
 Span::Span(const Span &src) : _size(src._size), _set(src._set) {
-	std::cout << "Span copy constructor called" << std::endl;
 }
 
 Span::~Span() {
-	std::cout << "Span destructor called" << std::endl;
 }
 
 Span &Span::operator=(const Span &src) {
-	std::cout << "Span assignment operator called" << std::endl;
 	if (this != &src) {
 		_size = src._size;
 		_set = src._set;
@@ -28,6 +27,15 @@ void Span::addNumber(int n) {
 	_set.insert(n);
 }
 
+void Span::addNumber(std::vector<int>::iterator begin, std::vector<int>::iterator end) {
+	for (std::vector<int>::iterator it = begin; it != end; ++it) {
+		if (_set.size() >= _size) {
+			throw std::out_of_range("Span is full");
+		}
+		_set.insert(*it);
+	}
+}
+
 int Span::longestSpan() const {
 	if (_set.size() < 2) throw std::out_of_range("Not enough numbers (2 minimum)");
 	int min = *_set.begin();
@@ -37,24 +45,20 @@ int Span::longestSpan() const {
 
 int Span::shortestSpan() const {
 	if (_set.size() < 2) throw std::out_of_range("Not enough numbers (2 minimum)");
-	int minDiff = INT_MAX;
-	std::multiset<int>::const_iterator iter = _set.begin(), next = iter;
-	++next;
-	for (; next != _set.end(); ++iter, ++next) {
-		int diff = *next - *iter;
-		if (diff < minDiff) minDiff = diff;
-	}
-	return minDiff;
+	std::vector<int> diffs(_set.size());
+	std::adjacent_difference(_set.begin(), _set.end(), diffs.begin());
+
+	return *std::min_element(diffs.begin() + 1, diffs.end());
 }
 
 unsigned int Span::getSetSize() const {
 	return _set.size();
 }
 
-void Span::printSet() const {
-	std::cout << "Set contents: ";
+void Span::printSet(std::string color, std::string name) const {
+	std::cout << color << "Set contents of " << name << ": \t";
 	for (std::multiset<int>::const_iterator it = _set.begin(); it != _set.end(); ++it) {
 		std::cout << *it << " ";
 	}
-	std::cout << std::endl;
+	std::cout << RESET << std::endl;
 }
