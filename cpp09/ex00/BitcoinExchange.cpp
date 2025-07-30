@@ -31,7 +31,7 @@ bool Date::operator!=(const Date &other) const {
 
 // BitcoinExchange cannonical form
 
-BitcoinExchange::BitcoinExchange() : _currentLine(0), _dbFileName("../data.csv"){
+BitcoinExchange::BitcoinExchange() : _currentLine(0), _dbFileName("data.csv"){
 	_defaultDate.year = 0;
 	_defaultDate.month = 0;
 	_defaultDate.day = 0;
@@ -188,6 +188,7 @@ void BitcoinExchange::inputHandler(const std::string &inputFileName) {
 			continue;
 		}
 		if (line[0] == '#' || _currentLine == 1) {
+			warnUserFirstLineSkip(line);
 			continue;
 		}
 		try {
@@ -326,4 +327,12 @@ std::string BitcoinExchange::to_string(int value) {
 
 	oss << value;
 	return (oss.str());
+}
+
+void BitcoinExchange::warnUserFirstLineSkip(const std::string &line) {
+	if (_currentLine == 1) {
+		std::string expectation = "date | value";
+		if (line != expectation)
+			std::cout << YELLOW "Warning: The first line is meant to be the header. Found: [" << line << "], it will be skipped." N << std::endl;
+	}
 }

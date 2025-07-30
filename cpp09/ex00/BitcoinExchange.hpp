@@ -38,6 +38,7 @@ class BitcoinExchange {
 		void							checkValueValidity(float);
 		std::pair<std::string, float>	splitLineCsv(const std::string &line);
 		std::pair<std::string, float>	splitLineInput(const std::string &line);
+		void							warnUserFirstLineSkip(const std::string &line);
 	public:
 		BitcoinExchange();
 		BitcoinExchange(const BitcoinExchange &copy);
