@@ -43,23 +43,42 @@ int main() {
 	mstack.push(1000);
 	mstack.push(10000);
 	mstack.push(100000);
+	std::cout << "Top element: " << mstack.top() << std::endl;
+	std::cout << "Size after adding element: " << mstack.size() << std::endl;
+	const MutantStack<int> constMstack = mstack;
+
 
 	std::cout << "\n=== Testing Iterators ===" << std::endl;
+	std::cout << "Begin:" << std::endl;
+	std::cout << *mstack.begin() << std::endl << std::endl;
+	std::cout << "Const begin:" << std::endl;
+	std::cout << *constMstack.begin() << std::endl << std::endl;
+	std::cout << "End:" << std::endl;
+	std::cout << *mstack.end() << std::endl << std::endl;
+	std::cout << "Const end:" << std::endl;
+	std::cout << *constMstack.end() << std::endl << std::endl;
+	std::cout << "Rbegin:" << std::endl;
+	std::cout << *mstack.rbegin() << std::endl << std::endl;
+	std::cout << "Const rbegin:" << std::endl;
+	std::cout << *constMstack.rbegin() << std::endl << std::endl;
+
 	std::cout << "Iterating through stack:" << std::endl;
 	for (MutantStack<int>::iterator it = mstack.begin(); it != mstack.end(); ++it) {
 		std::cout << *it << std::endl;
 	}
+	std::cout << std::endl;
 
 	std::cout << "Reverse iterating through stack:" << std::endl;
 	for (MutantStack<int>::reverse_iterator rit = mstack.rbegin(); rit != mstack.rend(); ++rit) {
 		std::cout << *rit << std::endl;
 	}
+	std::cout << std::endl;
 
-	const MutantStack<int> constMstack = mstack;
 	std::cout << "Const iterating through stack:" << std::endl;
 	for (MutantStack<int>::const_iterator cit = constMstack.begin(); cit != constMstack.end(); ++cit) {
 		std::cout << *cit << std::endl;
 	}
+	std::cout << std::endl;
 
 	std::cout << "Const reverse iterating through stack:" << std::endl;
 	for (MutantStack<int>::const_reverse_iterator crit = constMstack.rbegin(); crit != constMstack.rend(); ++crit) {
@@ -99,7 +118,6 @@ int main() {
 	for (MutantStack<std::string>::iterator it = stringStack.begin(); it != stringStack.end(); ++it) {
 		std::cout << *it << std::endl;
 	}
-
 
 	return 0;
 }
