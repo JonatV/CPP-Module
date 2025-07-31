@@ -1,5 +1,28 @@
 #include "PmergeMe.hpp"
 
+// ┌──────────────────────────────────────────────┐
+// │                CLASS BASIC's                 │
+// └──────────────────────────────────────────────┘
+
+PmergeMe &PmergeMe::operator=(const PmergeMe &other) {
+	if (this != &other) {
+		std::cout << GREY << "Assignment operator called" << N << std::endl;
+		_vector = other._vector;
+		_arguments = other._arguments;
+		_deque = other._deque;
+	}
+	return *this;
+}
+
+PmergeMe::PmergeMe(const PmergeMe &other) {
+	std::cout << GREY << "Copy constructor called" << N << std::endl;
+	*this = other;  // use assignment operator
+}
+
+PmergeMe::~PmergeMe() {
+	std::cout << GREY << "Destructor called" << N << std::endl;
+}
+
 PmergeMe::PmergeMe(const char **begin, const char **end) {
 	try {
 		checkValidInput(begin, end);
@@ -38,39 +61,10 @@ PmergeMe::PmergeMe(const char **begin, const char **end) {
 	showStats(finishDeque, startDeque, finishVec, startVec);
 }
 
-void PmergeMe::showStats(timespec &finishDeque, timespec &startDeque, timespec &finishVec, timespec &startVec) const
-{
-	long secondsDeque = finishDeque.tv_sec - startDeque.tv_sec;
-	long nanosecondsDeque = finishDeque.tv_nsec - startDeque.tv_nsec;
-	double microsecondsDeque = secondsDeque * 1e6 + nanosecondsDeque / 1e3;
+// ┌──────────────────────────────────────────────┐
+// │                PROCESS VECTOR                │
+// └──────────────────────────────────────────────┘
 
-	long secondsVec = finishVec.tv_sec - startVec.tv_sec;
-	long nanosecondsVec = finishVec.tv_nsec - startVec.tv_nsec;
-	double microsecondsVec = secondsVec * 1e6 + nanosecondsVec / 1e3;
-
-	std::cout << PURPLE << "Before: ";
-	for (std::vector<int>::const_iterator it = _arguments.begin(); it != _arguments.end(); ++it) {
-		std::cout << *it << " ";
-	}
-	std::cout << N << std::endl;
-	std::cout << PURPLE << "After: ";
-	for (std::vector<int>::const_iterator it = _vector.begin(); it != _vector.end(); ++it) {
-		std::cout << *it << " ";
-	}
-	std::cout << N << std::endl;
-	std::cout << std::fixed;
-	std::cout.precision(5);
-	std::cout << BLUE << "Time to process a range of " << _arguments.size() << " elements with " << YELLOW << "std::vector:\t" << BLUE << microsecondsVec << " us" << N << std::endl;
-	std::cout << BLUE << "Time to process a range of " << _arguments.size() << " elements with " << YELLOW << "std::deque:\t" << BLUE << microsecondsDeque << " us" << N << std::endl;
-	if (!checkSorting(_vector.begin(), _vector.end())) {
-		std::cerr << RED << "Error: vector is not sorted" << N << std::endl;
-		exit(EXIT_FAILURE);
-	}
-	if (!checkSorting(_deque.begin(), _deque.end())) {
-		std::cerr << RED << "Error: deque is not sorted" << N << std::endl;
-		exit(EXIT_FAILURE);
-	}
-}
 
 void PmergeMe::initVector()
 {
@@ -113,6 +107,10 @@ void PmergeMe::mergeVector(std::vector<int> &vec)
 	vec = merged;
 }
 
+// ┌──────────────────────────────────────────────┐
+// │                PROCESS DEQUE                 │
+// └──────────────────────────────────────────────┘
+
 void PmergeMe::initDeque()
 {
 	for (std::vector<int>::const_iterator it = _arguments.begin(); it != _arguments.end(); ++it)
@@ -154,9 +152,51 @@ void PmergeMe::mergeDeque(std::deque<int> &deq)
 	deq = merged;
 }
 
-PmergeMe::~PmergeMe() {
-	std::cout << GREY << "Destructor called" << N << std::endl;
+// ┌──────────────────────────────────────────────┐
+// │                    HELPER                    │
+// └──────────────────────────────────────────────┘
+
+std::string PmergeMe::to_string(int value) {
+	std::ostringstream	oss;
+
+	oss << value;
+	return (oss.str());
 }
+
+void PmergeMe::showStats(timespec &finishDeque, timespec &startDeque, timespec &finishVec, timespec &startVec) const
+{
+	long secondsDeque = finishDeque.tv_sec - startDeque.tv_sec;
+	long nanosecondsDeque = finishDeque.tv_nsec - startDeque.tv_nsec;
+	double microsecondsDeque = secondsDeque * 1e6 + nanosecondsDeque / 1e3;
+
+	long secondsVec = finishVec.tv_sec - startVec.tv_sec;
+	long nanosecondsVec = finishVec.tv_nsec - startVec.tv_nsec;
+	double microsecondsVec = secondsVec * 1e6 + nanosecondsVec / 1e3;
+
+	std::cout << PURPLE << "Before: ";
+	for (std::vector<int>::const_iterator it = _arguments.begin(); it != _arguments.end(); ++it) {
+		std::cout << *it << " ";
+	}
+	std::cout << N << std::endl;
+	std::cout << PURPLE << "After: ";
+	for (std::vector<int>::const_iterator it = _vector.begin(); it != _vector.end(); ++it) {
+		std::cout << *it << " ";
+	}
+	std::cout << N << std::endl;
+	std::cout << std::fixed;
+	std::cout.precision(5);
+	std::cout << BLUE << "Time to process a range of " << _arguments.size() << " elements with " << YELLOW << "std::vector:\t" << BLUE << microsecondsVec << " us" << N << std::endl;
+	std::cout << BLUE << "Time to process a range of " << _arguments.size() << " elements with " << YELLOW << "std::deque:\t" << BLUE << microsecondsDeque << " us" << N << std::endl;
+	if (!checkSorting(_vector.begin(), _vector.end())) {
+		std::cerr << RED << "Error: vector is not sorted" << N << std::endl;
+		exit(EXIT_FAILURE);
+	}
+	if (!checkSorting(_deque.begin(), _deque.end())) {
+		std::cerr << RED << "Error: deque is not sorted" << N << std::endl;
+		exit(EXIT_FAILURE);
+	}
+}
+
 
 void PmergeMe::checkValidInput(const char **begin, const char **end) {
 	if (begin == end) {
@@ -200,29 +240,4 @@ void PmergeMe::checkValidInput(const char **begin, const char **end) {
 	if (_arguments.empty()) {
 		throw std::invalid_argument("No valid integers found in input");
 	}
-}
-
-// assignment operator
-PmergeMe &PmergeMe::operator=(const PmergeMe &other) {
-	if (this != &other) {
-		std::cout << GREY << "Assignment operator called" << N << std::endl;
-		_vector = other._vector;
-		_arguments = other._arguments;
-		_deque = other._deque;
-	}
-	return *this;
-}
-
-// copy constructor
-PmergeMe::PmergeMe(const PmergeMe &other) {
-	std::cout << GREY << "Copy constructor called" << N << std::endl;
-	*this = other;  // use assignment operator
-}
-
-// helper function
-std::string PmergeMe::to_string(int value) {
-	std::ostringstream	oss;
-
-	oss << value;
-	return (oss.str());
 }

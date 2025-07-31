@@ -11,6 +11,7 @@
 
 // string format to parse for the date YYYY-MM-DD (i.e. 2022-09-13) and the value will be a float (i.e. 30239.19)
 // container format: std::map<Date, float>
+// WHY? Because we want to store the date as a key to easily access the value paired with it.
 struct Date {
 	int	year;
 	int	month;

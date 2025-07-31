@@ -6,6 +6,7 @@
 #include <iostream>
 
 // container format: std::stack<double>
+// why? Because Mister Łukasiewicz based the RPN on a stack structure! (LIFO)
 
 class RPN {
 	public:

@@ -2,6 +2,8 @@
 #define PMERGEME_HPP
 
 // container format: std::vector<int> and std::deque<int>
+// why? Because deque and vector provide a fast access to elements and are efficient for sorting operations. 
+// Both are sequence containers that allow random access to elements, and its interesting to compare similar containers.
 
 #include <vector>
 #include <deque>
